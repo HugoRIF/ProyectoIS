@@ -12,6 +12,7 @@
 		<hr>
 </head>
 <body>
-	
+<?php  echo $this->table->generate(MostarU());
+?>
 </body>
 </html> 

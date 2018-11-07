@@ -10,6 +10,7 @@ class EUC extends CI_Controller {
 		$this->load->model('EUM');
 		$this->load->model("Menu_model");
         $this->load->library('multi_menu');
+        $this->load->library('table');
 
 	}
 	
@@ -36,7 +37,9 @@ class EUC extends CI_Controller {
         $this->multi_menu->set_items($items);
 
 		$this->load->view('Vistas/ingresoAS');
-	}
+         echo $this->table->generate(MostarU());
+
+    }
 		
 }
 

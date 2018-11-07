@@ -6,8 +6,8 @@ class EUM extends CI_Model{
 		$this->load->database();
 	}
 	
-	function eliminarU($data){
-		
-       
+	function MostrarU(){
+		 $query = $this->db->query('SELECT `usuario`,`Tipo` FROM `login`');
+       return $query->row();
      }
 }
