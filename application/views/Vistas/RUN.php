@@ -14,9 +14,9 @@
 <body>
 	
 		<br>
-		<br>
-		
-	<?= form_open('/RUNC/RegistrarU') ?>
+<div class="form">	
+	<?= form_open('/RUNC/RegistrarU','class="form"') ?>
+	
 	<?
 		$nombre = array(
 			'name' => 'nombre',
@@ -35,16 +35,18 @@
 			'placeholder' => ''
 		);
 	?>
-	<pre>
-	<left>
-	<?= form_label(' Usuario:    ','nombre') ?>
-	<?= form_input($nombre) ?>
 	
-	<?= form_label(' Contraseña:','contra') ?>
+	
+	<?= form_label(' Usuario:    ','nombre','class="col-sm-2 col-form-label"') ?>
+	
+	<?= form_input($nombre,'','','class="form-group"') ?>
+	<br><br>
+	<?= form_label(' Contraseña:','contra','class="col-sm-2 col-form-label"') ?>
 	 <?= form_password($contra) ?>
-	 
-	 <?= form_label('E-mail:   ','correo') ?>
-     <?= form_input($correo) ?>
+	 <br><br>
+	 <?= form_label('E-mail:   ','correo','class="col-sm-2 col-form-label"') ?>
+	 <?= form_input($correo) ?>
+	 <br><br>
 	<?php $options = array(
         'AS'         => 'Administrador de Sistema',
         'AE'           => 'Administrador de Estudios',
@@ -52,19 +54,19 @@
         'A'           => 'Analista',
         );?>
 
-	 <?= form_label('Tipo de Usuario:','Tipo') ?>
+	 <?= form_label('Tipo de Usuario:','Tipo','class="col-sm-2 col-form-label"') ?>
      <?= form_dropdown($Tipo, $options,'','class="btn btn-primary dropdown-toggle"') ?>
-	
-	</left>
-	<center>
+	 <center>
+	<br><br>
 	<?= form_submit("","Registrar",'class="btn btn-success"')?>
 	
 	<?= form_close()?>
+	<br><br>
 	<?= form_open('/RUNC/inicio','class="form-inline"') ?>
 	<?= form_submit("","Cancelar",'class="btn btn-danger"')?>
 	<?= form_close()?>
 	</center>
-	</pre>
 	
+	</div>
 </body>
 </html>

@@ -48,7 +48,7 @@ class RUNC extends CI_Controller {
 		
 		if($creaReg==1){
 			echo '<script>alert("Registro Exitoso :)");</script>';
-			echo $creaReg;
+			
 			$this->load->view('Vistas/RUN');
 		}else{
 			echo '<script>alert("No se pudo realizar el registro, intenta: \n -Usar otro nombre de usuario\n -Intentar màs tarde");</script>';
