@@ -10,4 +10,9 @@ class Menu_model extends CI_Model {
 		return $this->db->get("menus")
 					->result_array();
 	}
+	public function menuAE()
+	{
+		return $this->db->get("menu_AE")
+					->result_array();
+	}
 }

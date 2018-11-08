@@ -38,19 +38,31 @@ class LoginC extends CI_Controller {
 		);
 		//$items = $this->Menu_model->MenuAS();
        // $this->multi_menu->set_items($items);
-
+	   if($data['nombre']==""){
+		echo '<script>alert("Ingresa un usuario");</script>';
+		$this->load->view('Vistas/LoginV');
+	}
+	
+	elseif($data['contra']==""){
+		echo '<script>alert("Ingresa una Contraseña");</script>';
+		$this->load->view('Vistas/LoginV');
+	}else{
 	$ingresaA=$this->LoginM->checaU($data);
 	switch ($ingresaA) {
 		case 0:
-			$this->load->view('Vistas/rechazo');
-			break;
+		echo '<script>alert("Usuario y/o Contraseña invalidos");</script>';
+		$this->load->view('Vistas/LoginV');
+		break;
 		case 1:
-		$items = $this->Menu_model->MenuAS();
+		$items = $this->Menu_model->menuAS();
         $this->multi_menu->set_items($items);
 
 			$this->load->view('Vistas/ingresoAS');
 			break;
 		case 2:
+		$items = $this->Menu_model->menuAE();
+        $this->multi_menu->set_items($items);
+
 			$this->load->view('Vistas/ingresoAE');
 			break;
 		case 3:
@@ -58,6 +70,7 @@ class LoginC extends CI_Controller {
 			break;
 	}
 	}
+}
 		
 }
 

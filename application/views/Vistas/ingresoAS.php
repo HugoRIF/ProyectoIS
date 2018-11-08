@@ -1,7 +1,7 @@
  <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Laboratorio 4</title>
+	<title>Administrador Sistema</title>
 	<meta charset="utf-8">
 	<h1 align="center" >Bienvenido</h1>
 	<h2 align="center" >Administrador de Sistema</h2>
