@@ -5,333 +5,174 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema ReproductorDB
+-- Schema ProyectoIS
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema ReproductorDB
+-- Schema ProyectoIS
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `ReproductorDB` DEFAULT CHARACTER SET utf8 ;
-USE `ReproductorDB` ;
+CREATE DATABASE IF NOT EXISTS `ProyectoIS` DEFAULT CHARACTER SET utf8 ;
+USE `ProyectoIS` ;
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`ARTISTA`
+-- Table `ProyectoIS`.`TIPO_USUARIO`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`ARTISTA` (
-  `idArtista` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nombre_Artista` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idArtista`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`ALBUM`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`ALBUM` (
-  `idAlbum` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nombre_album` VARCHAR(45) NOT NULL,
-  `Fecha` VARCHAR(45) NOT NULL,
-  `Num-Canciones` INT(11) NOT NULL,
-  `dArtista` INT(11) NOT NULL,
-  PRIMARY KEY (`idAlbum`),
-  INDEX `fk_Album_Artista1_idx` (`dArtista` ASC) VISIBLE,
-  CONSTRAINT `fk_Album_Artista1`
-    FOREIGN KEY (`dArtista`)
-    REFERENCES `ReproductorDB`.`ARTISTA` (`idArtista`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`GENERO`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`GENERO` (
-  `idGenero` INT NOT NULL AUTO_INCREMENT,
-  `Genero` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`idGenero`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`CANCION`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`CANCION` (
-  `idCancion` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nombre_Cancion` VARCHAR(45) NOT NULL,
-  `Duracion_Cancion` VARCHAR(45) NOT NULL,
-  `Direccion_SRC` VARCHAR(200) NOT NULL,
-  `Artista_idArtista` INT(11) NOT NULL,
-  `Album_idAlbum` INT(11) NOT NULL,
-  `GENERO_idGenero` INT NOT NULL,
-  PRIMARY KEY (`idCancion`),
-  INDEX `fk_Cancion_Artista1_idx` (`Artista_idArtista` ASC) VISIBLE,
-  INDEX `fk_Cancion_Album1_idx` (`Album_idAlbum` ASC) VISIBLE,
-  INDEX `fk_CANCION_GENERO1_idx` (`GENERO_idGenero` ASC) VISIBLE,
-  CONSTRAINT `fk_Cancion_Album1`
-    FOREIGN KEY (`Album_idAlbum`)
-    REFERENCES `ReproductorDB`.`ALBUM` (`idAlbum`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Cancion_Artista1`
-    FOREIGN KEY (`Artista_idArtista`)
-    REFERENCES `ReproductorDB`.`ARTISTA` (`idArtista`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CANCION_GENERO1`
-    FOREIGN KEY (`GENERO_idGenero`)
-    REFERENCES `ReproductorDB`.`GENERO` (`idGenero`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`TIPO_USUARIO`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`TIPO_USUARIO` (
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`TIPO_USUARIO` (
   `idTipoU` INT NOT NULL AUTO_INCREMENT,
-  `Tipo` VARCHAR(45) NOT NULL,
+  `TipoU` VARCHAR(45) NULL,
   PRIMARY KEY (`idTipoU`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`USUARIO`
+-- Table `ProyectoIS`.`USUARIO`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`USUARIO` (
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`USUARIO` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NOT NULL,
+  `NombreU` VARCHAR(45) NOT NULL,
   `Contraseña` VARCHAR(45) NOT NULL,
   `Correo` VARCHAR(45) NOT NULL,
-  `idTipo` INT NOT NULL,
+  `Tipo` INT NOT NULL,
   PRIMARY KEY (`idUsuario`),
-  INDEX `fk_USUARIO_TIPO_USUARIO1_idx` (`idTipo` ASC) VISIBLE,
-  CONSTRAINT `fk_USUARIO_TIPO_USUARIO1`
-    FOREIGN KEY (`idTipo`)
-    REFERENCES `ReproductorDB`.`TIPO_USUARIO` (`idTipoU`)
+  INDEX `fk_USUARIO_TIPO_USUARIO_idx` (`Tipo` ASC) ,
+  CONSTRAINT `fk_USUARIO_TIPO_USUARIO`
+    FOREIGN KEY (`Tipo`)
+    REFERENCES `ProyectoIS
+  `.`TIPO_USUARIO` (`idTipoU`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`PLAYLIST`
+-- Table `ProyectoIS`.`ESTUDIO`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`PLAYLIST` (
-  `idPlayList` INT(11) NOT NULL,
-  `Nombre_PlayList` VARCHAR(45) NOT NULL,
-  `Cantidad_Canciones` INT(11) NOT NULL,
-  `Usuario_idUsuario` INT(11) NOT NULL,
-  PRIMARY KEY (`idPlayList`),
-  INDEX `fk_PlayList_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_PlayList_Usuario1`
-    FOREIGN KEY (`Usuario_idUsuario`)
-    REFERENCES `ReproductorDB`.`USUARIO` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`PLAYLIST_CON_CANCIONES`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`PLAYLIST_CON_CANCIONES` (
-  `idPl_c_C` VARCHAR(45) NOT NULL,
-  `PlayList_idPlayList` INT(11) NOT NULL,
-  `Cancion_idCancion` INT(11) NOT NULL,
-  PRIMARY KEY (`idPl_c_C`, `PlayList_idPlayList`, `Cancion_idCancion`),
-  INDEX `fk_PlayList_has_Cancion_Cancion1_idx` (`Cancion_idCancion` ASC) VISIBLE,
-  INDEX `fk_PlayList_has_Cancion_PlayList1_idx` (`PlayList_idPlayList` ASC) VISIBLE,
-  CONSTRAINT `fk_PlayList_has_Cancion_Cancion1`
-    FOREIGN KEY (`Cancion_idCancion`)
-    REFERENCES `ReproductorDB`.`CANCION` (`idCancion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PlayList_has_Cancion_PlayList1`
-    FOREIGN KEY (`PlayList_idPlayList`)
-    REFERENCES `ReproductorDB`.`PLAYLIST` (`idPlayList`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`GENERO_DE_ARTISTA`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`GENERO_DE_ARTISTA` (
-  `idG_d_A` INT NOT NULL AUTO_INCREMENT,
-  `GENERO_idGenero` INT NOT NULL,
-  `ARTISTA_idArtista` INT(11) NOT NULL,
-  PRIMARY KEY (`idG_d_A`, `GENERO_idGenero`, `ARTISTA_idArtista`),
-  INDEX `fk_GENERO_has_ARTISTA_ARTISTA1_idx` (`ARTISTA_idArtista` ASC) VISIBLE,
-  INDEX `fk_GENERO_has_ARTISTA_GENERO1_idx` (`GENERO_idGenero` ASC) VISIBLE,
-  CONSTRAINT `fk_GENERO_has_ARTISTA_GENERO1`
-    FOREIGN KEY (`GENERO_idGenero`)
-    REFERENCES `ReproductorDB`.`GENERO` (`idGenero`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_GENERO_has_ARTISTA_ARTISTA1`
-    FOREIGN KEY (`ARTISTA_idArtista`)
-    REFERENCES `ReproductorDB`.`ARTISTA` (`idArtista`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`TIPO_USUARIO`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`TIPO_USUARIO` (
-  `idTipoU` INT NOT NULL AUTO_INCREMENT,
-  `Tipo` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idTipoU`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`USUARIO`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`USUARIO` (
-  `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NOT NULL,
-  `Contraseña` VARCHAR(45) NOT NULL,
-  `Correo` VARCHAR(45) NOT NULL,
-  `idTipo` INT NOT NULL,
-  PRIMARY KEY (`idUsuario`),
-  INDEX `fk_USUARIO_TIPO_USUARIO1_idx` (`idTipo` ASC) VISIBLE,
-  CONSTRAINT `fk_USUARIO_TIPO_USUARIO1`
-    FOREIGN KEY (`idTipo`)
-    REFERENCES `ReproductorDB`.`TIPO_USUARIO` (`idTipoU`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `ReproductorDB`.`ESTUDIO`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`ESTUDIO` (
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`ESTUDIO` (
   `idEstudio` INT NOT NULL AUTO_INCREMENT,
-  `Nombre_Estudio` VARCHAR(45) NOT NULL,
-  `Descripcion` VARCHAR(200) NOT NULL,
+  `NombreEs` VARCHAR(45) NOT NULL,
+  `DescripcionEs` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`idEstudio`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`TIPO_PREGUNTA`
+-- Table `ProyectoIS`.`TIPO_PREGUNTA`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`TIPO_PREGUNTA` (
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`TIPO_PREGUNTA` (
   `idTipoP` INT NOT NULL AUTO_INCREMENT,
-  `Tipo_Pregunta` VARCHAR(45) NOT NULL,
+  `TipoP` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTipoP`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`PREGUNTA`
+-- Table `ProyectoIS`.`PREGUNTA`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`PREGUNTA` (
-  `idPREGUNTA` INT NOT NULL AUTO_INCREMENT,
-  `PREGUNTA` VARCHAR(45) NOT NULL,
-  `ESTUDIO_idEstudio` INT NOT NULL,
-  `TIPO_PREGUNTA_idTipoP` INT NOT NULL,
-  PRIMARY KEY (`idPREGUNTA`),
-  INDEX `fk_PREGUNTA_ESTUDIO1_idx` (`ESTUDIO_idEstudio` ASC) VISIBLE,
-  INDEX `fk_PREGUNTA_TIPO_PREGUNTA1_idx` (`TIPO_PREGUNTA_idTipoP` ASC) VISIBLE,
-  CONSTRAINT `fk_PREGUNTA_ESTUDIO1`
-    FOREIGN KEY (`ESTUDIO_idEstudio`)
-    REFERENCES `ReproductorDB`.`ESTUDIO` (`idEstudio`)
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`PREGUNTA` (
+  `idPregunta` INT NOT NULL AUTO_INCREMENT,
+  `Pregunta` VARCHAR(100) NOT NULL,
+  `idTipoP` INT NOT NULL,
+  `idEstudio` INT NOT NULL,
+  PRIMARY KEY (`idPregunta`),
+  INDEX `fk_PREGUNTA_TIPO_PREGUNTA1_idx` (`idTipoP` ASC) ,
+  INDEX `fk_PREGUNTA_ESTUDIO1_idx` (`idEstudio` ASC) ,
+  CONSTRAINT `fk_PREGUNTA_TIPO_PREGUNTA1`
+    FOREIGN KEY (`idTipoP`)
+    REFERENCES `ProyectoIS
+  `.`TIPO_PREGUNTA` (`idTipoP`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PREGUNTA_TIPO_PREGUNTA1`
-    FOREIGN KEY (`TIPO_PREGUNTA_idTipoP`)
-    REFERENCES `ReproductorDB`.`TIPO_PREGUNTA` (`idTipoP`)
+  CONSTRAINT `fk_PREGUNTA_ESTUDIO1`
+    FOREIGN KEY (`idEstudio`)
+    REFERENCES `ProyectoIS
+  `.`ESTUDIO` (`idEstudio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`RESP_PREESTAB`
+-- Table `ProyectoIS`.`RESPUESTA_PREE`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`RESP_PREESTAB` (
-  `idRespuestaP` INT NOT NULL AUTO_INCREMENT,
-  `Respuesta` VARCHAR(45) NOT NULL,
-  `PREGUNTA_idPREGUNTA` INT NOT NULL,
-  PRIMARY KEY (`idRespuestaP`),
-  INDEX `fk_RESP_PREESTAB_PREGUNTA1_idx` (`PREGUNTA_idPREGUNTA` ASC) VISIBLE,
-  CONSTRAINT `fk_RESP_PREESTAB_PREGUNTA1`
-    FOREIGN KEY (`PREGUNTA_idPREGUNTA`)
-    REFERENCES `ReproductorDB`.`PREGUNTA` (`idPREGUNTA`)
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`RESPUESTA_PREE` (
+  `idRespuestaPre` INT NOT NULL AUTO_INCREMENT,
+  `RespuestaPree` VARCHAR(100) NOT NULL,
+  `idPregunta` INT NOT NULL,
+  PRIMARY KEY (`idRespuestaPre`),
+  INDEX `fk_RESPUESTA_PREE_PREGUNTA1_idx` (`idPregunta` ASC) ,
+  CONSTRAINT `fk_RESPUESTA_PREE_PREGUNTA1`
+    FOREIGN KEY (`idPregunta`)
+    REFERENCES `ProyectoIS
+  `.`PREGUNTA` (`idPregunta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`CUESTIONARIO_CONTESTADO`
+-- Table `ProyectoIS`.`CUESTIONARIO_CONTEST`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`CUESTIONARIO_CONTESTADO` (
-  `idCuest_Cotes` INT NOT NULL AUTO_INCREMENT,
-  `Cuestionario` VARCHAR(45) NULL,
-  `ESTUDIO_idEstudio` INT NOT NULL,
-  PRIMARY KEY (`idCuest_Cotes`),
-  INDEX `fk_CUESTIONARIO_CONTESTADO_ESTUDIO1_idx` (`ESTUDIO_idEstudio` ASC) VISIBLE,
-  CONSTRAINT `fk_CUESTIONARIO_CONTESTADO_ESTUDIO1`
-    FOREIGN KEY (`ESTUDIO_idEstudio`)
-    REFERENCES `ReproductorDB`.`ESTUDIO` (`idEstudio`)
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`CUESTIONARIO_CONTEST` (
+  `idCuestionarioC` INT NOT NULL,
+  `CuestionarioC` VARCHAR(200) NULL,
+  `idEstudio` INT NOT NULL,
+  PRIMARY KEY (`idCuestionarioC`),
+  INDEX `fk_CUESTIONARIO_CONTEST_ESTUDIO1_idx` (`idEstudio` ASC) ,
+  CONSTRAINT `fk_CUESTIONARIO_CONTEST_ESTUDIO1`
+    FOREIGN KEY (`idEstudio`)
+    REFERENCES `ProyectoIS
+  `.`ESTUDIO` (`idEstudio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`RESP_CAMPO`
+-- Table `ProyectoIS`.`RESPUESTA_CAMPO`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`RESP_CAMPO` (
-  `idResp_Camp` INT NOT NULL AUTO_INCREMENT,
-  `RespuestaC` VARCHAR(45) NULL,
-  `RESP_PREESTAB_idRespuestaP` INT NOT NULL,
-  PRIMARY KEY (`idResp_Camp`),
-  INDEX `fk_RESP_CAMPO_RESP_PREESTAB1_idx` (`RESP_PREESTAB_idRespuestaP` ASC) VISIBLE,
-  CONSTRAINT `fk_RESP_CAMPO_RESP_PREESTAB1`
-    FOREIGN KEY (`RESP_PREESTAB_idRespuestaP`)
-    REFERENCES `ReproductorDB`.`RESP_PREESTAB` (`idRespuestaP`)
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`RESPUESTA_CAMPO` (
+  `idRespuestaC` INT NOT NULL AUTO_INCREMENT,
+  `RespuestaC` VARCHAR(45) NOT NULL,
+  `idRespuestaPre` INT NOT NULL,
+  `idCuestionarioC` INT NOT NULL,
+  PRIMARY KEY (`idRespuestaC`),
+  INDEX `fk_RESPUESTA_CAMPO_RESPUESTA_PREE1_idx` (`idRespuestaPre` ASC) ,
+  INDEX `fk_RESPUESTA_CAMPO_CUESTIONARIO_CONTEST1_idx` (`idCuestionarioC` ASC) ,
+  CONSTRAINT `fk_RESPUESTA_CAMPO_RESPUESTA_PREE1`
+    FOREIGN KEY (`idRespuestaPre`)
+    REFERENCES `ProyectoIS
+  `.`RESPUESTA_PREE` (`idRespuestaPre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_RESPUESTA_CAMPO_CUESTIONARIO_CONTEST1`
+    FOREIGN KEY (`idCuestionarioC`)
+    REFERENCES `ProyectoIS
+  `.`CUESTIONARIO_CONTEST` (`idCuestionarioC`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ReproductorDB`.`ESTUDIOS_DE_USUARIOS`
+-- Table `ProyectoIS`.`ESTUDIOS_DE USUARIO`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReproductorDB`.`ESTUDIOS_DE_USUARIOS` (
-  `idEstudio_de_Usuario` VARCHAR(45) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ProyectoIS`.`ESTUDIOS_DE USUARIO` (
+  `idEdU` INT NOT NULL AUTO_INCREMENT,
   `USUARIO_idUsuario` INT NOT NULL,
   `ESTUDIO_idEstudio` INT NOT NULL,
-  PRIMARY KEY (`USUARIO_idUsuario`, `ESTUDIO_idEstudio`),
-  INDEX `fk_USUARIO_has_ESTUDIO_ESTUDIO1_idx` (`ESTUDIO_idEstudio` ASC) VISIBLE,
-  INDEX `fk_USUARIO_has_ESTUDIO_USUARIO1_idx` (`USUARIO_idUsuario` ASC) VISIBLE,
+  PRIMARY KEY (`idEdU`, `USUARIO_idUsuario`, `ESTUDIO_idEstudio`),
+  INDEX `fk_USUARIO_has_ESTUDIO_ESTUDIO1_idx` (`ESTUDIO_idEstudio` ASC) ,
+  INDEX `fk_USUARIO_has_ESTUDIO_USUARIO1_idx` (`USUARIO_idUsuario` ASC) ,
   CONSTRAINT `fk_USUARIO_has_ESTUDIO_USUARIO1`
     FOREIGN KEY (`USUARIO_idUsuario`)
-    REFERENCES `ReproductorDB`.`USUARIO` (`idUsuario`)
+    REFERENCES `ProyectoIS
+  `.`USUARIO` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_USUARIO_has_ESTUDIO_ESTUDIO1`
     FOREIGN KEY (`ESTUDIO_idEstudio`)
-    REFERENCES `ReproductorDB`.`ESTUDIO` (`idEstudio`)
+    REFERENCES `ProyectoIS
+  `.`ESTUDIO` (`idEstudio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
