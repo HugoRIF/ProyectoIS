@@ -8,37 +8,21 @@ class LoginM extends CI_Model{
 	
 	function checaU($data){
 		
-		$this->db->where('usuario',$data['nombre']);
-		$this->db->where('password',$data['contra']);
-		$query = $this->db->get('login');
-		
+		$this->db->where('NombreU',$data['nombre']);
+		$this->db->where('Contraseña',$data['contra']);
+		$query = $this->db->get('USUARIO');
+		$tipoU="";
 		if($query->num_rows() > 0)
 		{
 			
 			$query2 =  $this->db->query('SELECT Tipo 
-										FROM `login`
-			 							WHERE usuario ="'.$data['nombre'].'"
-										AND password ="'.$data['contra'].'"')->result();
+										FROM `USUARIO`
+			 							WHERE NombreU ="'.$data['nombre'].'"
+										AND Contraseña ="'.$data['contra'].'"')->result();
 			$tipoU = $query2[0]->Tipo;
-			switch ($tipoU) {
-				case "AS":
-					return 1;
-					break;
-				case "AE":
-					return 2;
-					break;
-				case "E":
-					return 3;
-					break;
-			}
+			//return $tipoU;
 		}
-		else{ 
-
-
-			return 0;
-		}
+		return $tipoU;
 	}
-	
-
 }
 ?>

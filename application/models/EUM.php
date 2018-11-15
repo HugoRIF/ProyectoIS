@@ -7,24 +7,24 @@ class EUM extends CI_Model{
 	}
 	
 	function MostrarU(){
-		 $result=$this->db->query('SELECT `usuario` FROM `login` ORDER BY `idUsuario` ')->result();
+		 $result=$this->db->query('SELECT `NombreU` FROM `USUARIO` ORDER BY `idUsuario` ')->result();
 		#$tam=$result->count();
 		$arrayNombreU = array('');
 		$i=0;
 		 foreach ($result as $res) { 
-			array_push($arrayNombreU,$result[$i]->usuario);
+			array_push($arrayNombreU,$result[$i]->NombreU);
 			$i++;
 		}
 		return $arrayNombreU ;
 		
 	}
 	function MostrarTipo(){
-		$result=$this->db->query('SELECT `Tipo` FROM `login` ORDER BY `idUsuario` ')->result();
+		$result=$this->db->query('SELECT TipoU FROM USUARIO u,TIPO_USUARIO t WHERE u.Tipo =t.idTipoU ORDER BY u.idUsuario ')->result();
 	   #$tam=$result->count();
 	   $arrayNombreU = array('');
 	   $i=0;
 		foreach ($result as $res) { 
-		   array_push($arrayNombreU,$result[$i]->Tipo);
+		   array_push($arrayNombreU,$result[$i]->TipoU);
 		   $i++;
 	   }
 	   return $arrayNombreU ;
@@ -32,7 +32,7 @@ class EUM extends CI_Model{
 
    function EliminarU($arreglo){
 	   foreach ($arreglo as $nombre) {
-		$query=$this->db->query('DELETE FROM `login` WHERE `usuario`="'.$nombre.' " ');
+		$query=$this->db->query('DELETE FROM `USUARIO` WHERE `NombreU`="'.$nombre.' " ');
 
 	   }
 	   return 1;
