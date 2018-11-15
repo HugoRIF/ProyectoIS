@@ -1,17 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<title>Eiminar Usuario</title>
-	<meta charset="utf-8">
-	<br>
-	<h1 align="center" >Eliminar Usuario</h1>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-   		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-		<hr>
-</head>
-<body >
+<title>Eliminar U</title>
+  </head>
+  
+
+<section class="container-fluid slider d-flex justify-content-center align-items-center">
+      <h1 class="display-3 text-white">Eliminar Usuario</h1>
+    </section>
+<body>
+<!-- Inicio Menu Navegacion -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+        <div class="navbar-brand" href="">
+            <img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+            Menu
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="navbar-nav mr-auto ml-auto text-left">
+                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/RUNC/inicio">Inicio</a>
+                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/RUNC/index">Registrar Usuario</a>
+                <a class="nav-item nav-link active " href="http://192.168.64.2/ProyectoIS/index.php/EUC/index">Eliminar Usuario</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/LoginC/index">Salir</a>
+                
+            </div>
+            
+        </div>
+    </nav>
+<!-- Fin menu de navegacion -->
 	
 <?= form_open('/EUC/EliminarU')?>
 	
@@ -59,9 +74,8 @@
 	<?= form_submit("","Eliminar",'class="btn btn-primary"');?>
 	<?= form_close();?>
 	<br><br>
-	<?= form_open('/EUC/inicio','class="form-inline"') ?>
-	<?= form_submit("","Cancelar ",'class="btn btn-danger"')?>
-	<?= form_close()?>
+	<a class="btn btn-danger" href="http://192.168.64.2/ProyectoIS/index.php/RUNC/inicio" role="button">Cancelar</a>
+	
 		</center>
 
 </body>
