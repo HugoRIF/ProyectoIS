@@ -14,12 +14,7 @@ class RUNC extends CI_Controller {
 	}
 	
 	function index(){
-		$config["nav_tag_open"]          = '<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">';     
-    $config["parent_tag_open"]       = '<li class="dropdown-submenu">';
-    $config["parent_anchor_tag"]     = '<a tabindex="-1" href="%s">%s</a>'; 
-    $config["children_tag_open"]     = '<ul class="dropdown-menu">';
-    $config["item_divider"]          = "<li class='divider'></li>";
-        
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/RUN');
 		
 		}
@@ -32,43 +27,37 @@ class RUNC extends CI_Controller {
 		);
 		if($data['nombre']=="" ){
 			echo '<script>alert("Ingresa un usuario");</script>';
-			$this->load->view('Vistas/RUN');
+			$this->load->view('Vistas/Encabezado');
+		    $this->load->view('Vistas/RUN');
 		}
 		
 		elseif($data['contra']==""){
 			echo '<script>alert("Ingresa una Contraseña");</script>';
+			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/RUN');
 		}
 		elseif($data['correo']==""){
 			echo '<script>alert("Ingresa un Correo valido");</script>';
-			$this->load->view('Vistas/RUN');
+			$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/RUN');
 		}
 		else{
 		$creaReg=$this->RUNM->registraU($data);
 		
 		if($creaReg==1){
 			echo '<script>alert("Registro Exitoso :)");</script>';
-			
-			$this->load->view('Vistas/RUN');
+			$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/RUN');
 		}else{
 			echo '<script>alert("No se pudo realizar el registro, intenta: \n -Usar otro nombre de usuario\n -Intentar màs tarde");</script>';
-			$this->load->view('Vistas/RUN');
+			$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/RUN');
 		}
 	}
 	}
 	function inicio(){
-	
-		$config["nav_tag_open"]          = '<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">';     
-    $config["parent_tag_open"]       = '<li class="dropdown-submenu">';
-    $config["parent_anchor_tag"]     = '<a tabindex="-1" href="%s">%s</a>'; 
-    $config["children_tag_open"]     = '<ul class="dropdown-menu">';
-    $config["item_divider"]          = "<li class='divider'></li>";
-        
-    $this->multi_menu->initialize($config);
-		$items = $this->Menu_model->MenuAS();
-        $this->multi_menu->set_items($items);
-
-		$this->load->view('Vistas/ingresoAS');
+	$this->load->view('Vistas/Encabezado');
+	$this->load->view('Vistas/ingresoAS');
 	}
 		
 }
