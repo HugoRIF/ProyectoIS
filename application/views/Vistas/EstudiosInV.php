@@ -1,8 +1,8 @@
-<title>Admin Estudio</title>
+<title>Mis Estudios</title>
   </head>
   
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Administrador de Estudio</h1>
+      <h1 class="display-3 text-white">Mis Estudios</h1>
     </section>
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
@@ -26,12 +26,13 @@
         </div>
     </nav>
 <!-- Fin menu de navegacion -->
-     </div>
+   
+</div>
 	 <div class="container-fluid ">
         <section class="container py-3 mt-3 mb-3">
             <h3 class="text-uppercase text-center mb-4 ">Mis Estudios</h3>
             
-	 <?= form_open('/AdminEstC/EstParticular')?>
+	 <?= form_open('/EstudiosC/EstParticular')?>
 	
 	<table class="table table-striped" > 
 
@@ -46,8 +47,9 @@
 	<tbody>
 
 	<?php
-	$Estudio=$this->AdminEstM->Mostrar_Est($this->session->userdata('id'));
-	$idEstudio=$this->AdminEstM->Mostrar_idEst($this->session->userdata('id'));
+    echo $this->session->userdata('id');
+	$Estudio=$this->EstudiosM->Mostrar_Est($this->session->userdata('id'));
+	$idEstudio=$this->EstudiosM->Mostrar_idEst($this->session->userdata('id'));
 	
 	$i=0;
 	foreach ($Estudio as $array){
@@ -84,7 +86,23 @@
 	<?= form_close();?>
 	<br><br>
 	
-		
+<?php
+    $idEst = array(
+        'name' =>'idEst',
+        'placeholder' =>'idEstudio'
+    );
+    $nombreEst = array(
+            'name' => 'nombreEst',
+            'placeholder' => 'Nombre del estudio'
+    );
+    $DescEst = array(
+        'name' =>'DescEst',
+        'placeholder' =>'Descripcion del curso'
+    );  
+?>
+
+
+<?php form_close() ?>
 
 </body>
 </html>

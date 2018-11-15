@@ -1,13 +1,13 @@
 <?php if(! defined('BASEPATH')) exit ('No direct script access allowed');
 
-class EUM extends CI_Model{
+class ParticularM extends CI_Model{
 	function __construct(){
 		parent :: __construct();
 		$this->load->database();
 	}
 	
 	function MostrarU(){
-		 $result=$this->db->query('SELECT `NombreU` FROM `USUARIO` ORDER BY `idUsuario` ')->result();
+		 $result=$this->db->query('SELECT `NombreU` FROM `USUARIO` WHERE Tipo = 3 ORDER BY `idUsuario` ')->result();
 		#$tam=$result->count();
 		$arrayNombreU = array('');
 		$i=0;
@@ -19,7 +19,7 @@ class EUM extends CI_Model{
 		
 	}
 	function MostrarTipo(){
-		$result=$this->db->query('SELECT TipoU FROM USUARIO u,TIPO_USUARIO t WHERE u.Tipo =t.idTipoU ORDER BY u.idUsuario ')->result();
+		$result=$this->db->query('SELECT TipoU FROM USUARIO u,TIPO_USUARIO t WHERE u.Tipo =t.idTipoU AND u.Tipo = 3 ORDER BY u.idUsuario ')->result();
 	   #$tam=$result->count();
 	   $arrayNombreU = array('');
 	   $i=0;
@@ -30,9 +30,9 @@ class EUM extends CI_Model{
 	   return $arrayNombreU ;
    }
 
-   function EliminarU($arreglo){
+   function SelecionarU($arreglo){
 	   foreach ($arreglo as $nombre) {
-		$query=$this->db->query('DELETE FROM `USUARIO` WHERE `NombreU`="'.$nombre.' " ');
+		$query=$this->db->query('INSERT INTO `ESTUDIOS_DE USUARIO` (idUsuario,idestudio) VALUES ('.$nombre.',3) ');
 
 	   }
 	   return 1;

@@ -8,64 +8,62 @@ class LoginC extends CI_Controller {
 		
 		$this->load->helper('form');
 		$this->load->model('LoginM');
-		$this->load->model("Menu_model");
-        $this->load->library('multi_menu');
-
+		$this->load->library('session');
+		$this->load->model('AdminEstM');
 	}
 	function index(){
-		$config["nav_tag_open"]          = '<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">';     
-    $config["parent_tag_open"]       = '<li class="dropdown-submenu">';
-    $config["parent_anchor_tag"]     = '<a tabindex="-1" href="%s">%s</a>'; 
-    $config["children_tag_open"]     = '<ul class="dropdown-menu">';
-    $config["item_divider"]          = "<li class='divider'></li>";
-        
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/LoginV');
 		
 		
 	}
 	function RecibirDatos(){
-		$config["nav_tag_open"]          = '<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">';     
-    $config["parent_tag_open"]       = '<li class="dropdown-submenu">';
-    $config["parent_anchor_tag"]     = '<a tabindex="-1" href="%s">%s</a>'; 
-    $config["children_tag_open"]     = '<ul class="dropdown-menu">';
-    $config["item_divider"]          = "<li class='divider'></li>";
-
-    $this->multi_menu->initialize($config);
-		
+		#recibo datos
 		$data = array(
 			'nombre' => $this->input->post('nombre'),
 			'contra' => $this->input->post('contra')
 		);
-		//$items = $this->Menu_model->MenuAS();
-       // $this->multi_menu->set_items($items);
+		#verifico que no esten vacios los valores
 	   if($data['nombre']==""){
 		echo '<script>alert("Ingresa un usuario");</script>';
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/LoginV');
 	}
-	
 	elseif($data['contra']==""){
 		echo '<script>alert("Ingresa una Contraseña");</script>';
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/LoginV');
 	}else{
+		#Verifico que exitan los datos
 	$ingresaA=$this->LoginM->checaU($data);
-	switch ($ingresaA) {
+		#guardo datos de la sesion
+	$idU=$this->LoginM->Regresaid($data);
+	$usuario_data = array(
+		'id' => $idU,
+		);
+	 $this->session->set_userdata($usuario_data);
+	 $idSesion= $this->session->userdata('id');
+	 #direcciono segun los usuarios
+	 switch ($ingresaA) {
 		case 0:
 		echo '<script>alert("Usuario y/o Contraseña invalidos");</script>';
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/LoginV');
 		break;
 		case 1:
-		$items = $this->Menu_model->menuAS();
-        $this->multi_menu->set_items($items);
-
+		
+			echo $idSesion;
+		$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoAS');
 			break;
 		case 2:
-		$items = $this->Menu_model->menuAE();
-        $this->multi_menu->set_items($items);
-
+		echo $idSesion;
+			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoAE');
 			break;
 		case 3:
+		echo $idSesion;
+			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoE');
 			break;
 	}

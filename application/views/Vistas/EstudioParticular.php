@@ -2,7 +2,7 @@
   </head>
   
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Administrador de Estudio</h1>
+      <h1 class="display-3 text-white">Estudio Particular</h1>
     </section>
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
                 <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Inicio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EstudiosC/index">Alta Estudio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Alta Estudio</a>
                 <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Eliminar Estudio</a>
                 <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/Salir">Salir</a>
                 
@@ -27,64 +27,37 @@
     </nav>
 <!-- Fin menu de navegacion -->
      </div>
-	 <div class="container-fluid ">
+<body>
+<div class="container-fluid">
         <section class="container py-3 mt-3 mb-3">
-            <h3 class="text-uppercase text-center mb-4 ">Mis Estudios</h3>
-            
-	 <?= form_open('/AdminEstC/EstParticular')?>
-	
-	<table class="table table-striped" > 
+            <h3 class="text-uppercase text-center mb-4 "><?=  $NombreEst ?></h3>
+            <p class="lead text-center mb-4 "><?=  $Descripcion ?></p>
 
-		<thead >
-		<tr>
-			<th scope="col" style="width:5%">id</th>
-			<th scope="col" style="width:20% ">Estudio</th>
-			<th scope="col" style="width:5% ">Accion</th>
-		</tr>
+</div>
+<center>	
+	<?= form_open('/EparticularC/Cuest','class="form-horizontal justify-content-center flex-column flex-md-row"') ?>
+    <?
+    $Accion= array(
+			'name' => 'Accion',
+			'placeholder' => ''
+    );?>
+<?php $options = array(
+        1         => 'Crear Encuesta',
+        2           => 'Eliminar Encuesta',
+        3           => 'Eliminar Estudio',
+        4           =>'Seleccionar Participantes',
+        );?>
+	<div class="form-group mx-3 my-3">
+  	 <?= form_label('Tipo de Usuario:','Tipo','class="mx-3 d-sm-block text-white"') ?>
+     <?= form_dropdown($Accion, $options,'','class="btn btn-primary dropdown-toggle"') ?>
+	</div>
+    <?= form_hidden("idEst",$NombreEst);?>
 	
-		</thead>
-	<tbody>
 
-	<?php
-	$Estudio=$this->AdminEstM->Mostrar_Est($this->session->userdata('id'));
-	$idEstudio=$this->AdminEstM->Mostrar_idEst($this->session->userdata('id'));
+	<?= form_submit("","Ir",'class="btn btn-primary"')?>
 	
-	$i=0;
-	foreach ($Estudio as $array){
-		$data = array(
-			'name'          => 'radio',
-			'id'            => 'radio'.$i,
-			'value'         => $idEstudio[$i],
-			'checked'       => True,
-			'style'         => 'margin:10px'
-	);
-		if($i!=0){ 
-			
-		?><tr>
-			<td style="text-align:center">
-			<?= $idEstudio[$i];?></td>
-			<td style="text-align:center">
-			<?= $Estudio[$i];?></td>
-			<td style="text-align:center">
-			<?= form_radio($data);$i++;?></td>
-				
-		</tr>
-			
-
-	<?php
-		}else $i++;
-			}
-			
-	 ?>
-	</tbody>
-	</table>
-	<?= form_hidden("totalD",$i-1);?>
-	<?= form_submit("","VER",'class="btn btn-primary"');?>
+	<?= form_close()?>
 	
-	<?= form_close();?>
-	<br><br>
-	
-		
-
+<!--<?= $this->session->userdata('id');?>-->
 </body>
 </html>

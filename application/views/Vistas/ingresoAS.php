@@ -1,72 +1,30 @@
- <!DOCTYPE html>
-<html lang="es">
-<head>
-	<title>Administrador Sistema</title>
-	<meta charset="utf-8">
-	<h1 align="center" >Bienvenido</h1>
-	<h2 align="center" >Administrador de Sistema</h2>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-   		<style type="text/css">
-        
-			.dropdown-submenu {
-			    position: relative;
-			}
-			.dropdown-submenu>.dropdown-menu {
-			    top: 0;
-			    left: 100%;
-			    margin-top: -6px;
-			    margin-left: -1px;
-			    -webkit-border-radius: 0 6px 6px 6px;
-			    -moz-border-radius: 0 6px 6px;
-			    border-radius: 0 6px 6px 6px;
-			}
-			.dropdown-submenu:hover>.dropdown-menu {
-			    display: block;
-			}
-			.dropdown-submenu>a:after {
-			    display: block;
-			    content: " ";
-			    float: right;
-			    width: 0;
-			    height: 0;
-			    border-color: transparent;
-			    border-style: solid;
-			    border-width: 5px 0 5px 5px;
-			    border-left-color: #ccc;
-			    margin-top: 5px;
-			    margin-right: -10px;
-			}
-			.dropdown-submenu:hover>a:after {
-			    border-left-color: #fff;
-			}
-			.dropdown-submenu.pull-left {
-			    float: none;
-			}
-			.dropdown-submenu.pull-left>.dropdown-menu {
-			    left: -100%;
-			    margin-left: 10px;
-			    -webkit-border-radius: 6px 0 6px 6px;
-			    -moz-border-radius: 6px 0 6px 6px;
-			    border-radius: 6px 0 6px 6px;
-			}
-	    </style>
-	    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-</head>
-<body>
-<div class="container">
-	<div class="row">
-        <hr>
-        <div class="dropdown">
-            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="">
-                Menu <span class="caret"></span>
-            </a>
-    		<?php echo $this->multi_menu->render(); ?>
+<title>Admin Sistema</title>
+  </head>
+  
+<section class="container-fluid slider d-flex justify-content-center align-items-center">
+      <h1 class="display-3 text-white">Administrador de Sistema</h1>
+    </section>
+<!-- Inicio Menu Navegacion -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+        <div class="navbar-brand" href="">
+            <img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+            Menu
         </div>
-        <br>
-       	</div>
-</div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="navbar-nav mr-auto ml-auto text-left">
+                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/RUNC/inicio">Inicio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/RUNC/index">Registrar Usuario</a>
+                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/EUC/index">Eliminar Usuario</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/LoginC/index">Salir</a>
+                
+            </div>
+            
+        </div>
+    </nav>
+<!-- Fin menu de navegacion -->
+     </div>
 </body>
 </html>

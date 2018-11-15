@@ -1,15 +1,16 @@
-<title>Eliminar U</title>
+<title>Selecionar P</title>
   </head>
   
 
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Eliminar Usuario</h1>
+      <h1 class="display-3 text-white">seleccionar Participantes</h1>
     </section>
 <body>
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
-            <img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+            
+			<img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
             Menu
         </div>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,10 +18,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
-                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/EUC/inicio">Inicio</a>
-                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/RUNC/index">Registrar Usuario</a>
-                <a class="nav-item nav-link active " href="http://192.168.64.2/ProyectoIS/index.php/EUC/index">Eliminar Usuario</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EUC/Salir">Salir</a>
+                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Inicio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Alta Estudio</a>
+                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Eliminar Estudio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/Salir">Salir</a>
                 
             </div>
             
@@ -31,7 +32,7 @@
         <section class="container py-3 mt-3 mb-3">
             <h3 class="text-uppercase text-center mb-4 ">Seleeciona Para Eliminar</h3>
      
-<?= form_open('/EUC/EliminarU')?>
+<?= form_open('/EparticularC/SeleccionarU')?>
 	
 	<table class="table table-striped" > 
 
@@ -39,15 +40,15 @@
 		<tr>
 			<th scope="col" style="width:20%">Nombre de Usuario</th>
 			<th scope="col" style="width:5% ">Tipo</th>
-			<th scope="col" >Eliminar</th>
+			<th scope="col" >Seleccionar</th>
 		</tr>
 	
 		</thead>
 	<tbody>
 
 	<?php
-	$Usuario=$this->EUM->MostrarU();
-	$Tipo=$this->EUM->MostrarTipo();
+	$Usuario=$this->ParticularM->MostrarU();
+	$Tipo=$this->ParticularM->MostrarTipo();
 
 	
 	$i=0;
@@ -74,7 +75,7 @@
 	</table>
 		<center>
 	<?= form_hidden("totalD",$i-1);?>
-	<?= form_submit("","Eliminar",'class="btn btn-primary"');?>
+	<?= form_submit("","Seleccionar",'class="btn btn-primary"');?>
 	<?= form_close();?>
 	<br><br>
 	<a class="btn btn-danger" 
@@ -85,4 +86,4 @@
 
 </body>
 
-</html> 
+</html>

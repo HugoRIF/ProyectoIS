@@ -9,7 +9,7 @@ class RUNM extends CI_Model{
 	function registraU($data){
 		
         $query1 =  $this->db->
-        query('INSERT INTO `login`(`usuario`, `password`, `E-mail`, `Tipo`) 
+        query('INSERT INTO `USUARIO`(`NombreU`, `Contraseña`, `Correo`, `Tipo`) 
         VALUES ("'.$data['nombre'].'","'.$data['contra'].'","'.$data['correo'].'","'.$data['Tipo'].'")');
         
         if(!$query1){
