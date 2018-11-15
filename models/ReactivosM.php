@@ -1,15 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class EstudiosM extends CI_Model{
-    function _construct(){
-        parent::_construct();
+class ReactivosM extends CI_Model{
+    function __construct(){
+        parent::__construct();
         $this->load->database();
     }
 
-    function crearEstudio($data){
-        $this->db->insert('estudio',array('idEstudio'=>$data['idEstudio'],'NombreEs'=>$data['NombreEs'],'DescripcionEs'=>$data['DescripcionEs']));
-        
+    function crearPregunta($data){
+        $this->db->insert('pregunta',array('Pregunta'=>$data['Pregunta']));
+    }
+    function crearRespuestaPree($data){
+        $this->db->insert('respuesta_pree',array('RespuestaPree'=>$data['RespuestaPree']));
     }
 
     /*function crearEstudio($data){
