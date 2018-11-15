@@ -30,7 +30,7 @@ class RUNC extends CI_Controller {
 			'correo' => $this->input->post('correo'),
 			'Tipo' => $this->input->post('Tipo')
 		);
-		if($data['nombre']==""){
+		if($data['nombre']=="" ){
 			echo '<script>alert("Ingresa un usuario");</script>';
 			$this->load->view('Vistas/RUN');
 		}
