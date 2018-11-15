@@ -23,23 +23,24 @@
             'placeholder' => 'Nombre del estudio'
     );
     $DescEst = array(
-        'name' =>'DescEst',
+        'name' =>'desEst',
         'placeholder' =>'Descripcion del curso, solo 500 caracteres'
     );
     
 ?>
-<?= form_label('idEstudio: ','idEst','class="col-sm-2 col-form-label"')?>
+<?= form_label('idEst: ','idEst','class="col-sm-2 col-form-label"')?>
 <?= form_input($idEst) ?>
 <br><br><br>
 <?= form_label('nombre del estudio: ','nombreEst','class="col-sm-2 col-form-label"')?>
 <?= form_input($nombreEst) ?>
 <br><br><br>
-<?= form_label('Descripcion del estudio: ','DescEst','class="col-sm-2 col-form-label"')?>
+<?= form_label('Descripcion del estudio: ','descEst','class="col-sm-2 col-form-label"')?>
 <br>
 <?= form_textarea($DescEst) ?>
 <br><br><br>
 <center>
 <?= form_submit('','Dar de alta estudio','class="btn btn-success"') ?>
+
 <a class="btn btn-success"
 href="http://localhost/ProyectoIng/index.php/EstudiosInC"
 role="button">Ver estudios</a>

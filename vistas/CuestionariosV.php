@@ -42,7 +42,7 @@
 <?= form_submit('','Dar de alta cuestionario','class="btn btn-success"') ?>
 
 <a class="btn btn-success"
-href="http://localhost/ProyectoIng/index.php/EstudiosC"
+href="http://localhost/ProyectoIng/index.php/MisCuestionariosC"
 role="button">Ver Cuestionarios en este estudio</a>
 </center>
 <?php form_close() ?>
