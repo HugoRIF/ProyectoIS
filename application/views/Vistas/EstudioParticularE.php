@@ -1,8 +1,8 @@
-<title>Encuestador</title>
+<title>Admin Estudio</title>
   </head>
   
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Bienvenido Encuestador</h1>
+      <h1 class="display-3 text-white">Estudio Particular</h1>
     </section>
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
@@ -24,70 +24,31 @@
         </div>
     </nav>
 <!-- Fin menu de navegacion -->
-<body>
      </div>
-	 <div class="container-fluid ">
+<body>
+<div class="container-fluid">
         <section class="container py-3 mt-3 mb-3">
-            <h3 class="text-uppercase text-center mb-4 ">Mis Estudios</h3>
-            
-	 <?= form_open('/EncuestadorC/EParticular')?>
-	
-	<table class="table table-striped" > 
+            <h2 class="text-uppercase text-center mb-4 "><?=  $NombreEst ?></h2>
+            <h3 class="lead text-center mb-4 "><?=  $Descripcion ?></h3>
+            <p class="lead text-center mb-4 ">
+            Encuestas Asignadas: <?= $EAsignadas?>
+            <br>
+            Encuestas Faltantes: 0
+            </p>
 
-		<thead >
-		<tr>
-			<th scope="col" style="width:5%">id</th>
-			<th scope="col" style="width:20% ">Estudio</th>
-			<th scope="col" style="width:5% ">Accion</th>
-		</tr>
+</div>
+<center>	
+	<?= form_open('/EparticularC/Cuest','class="form-horizontal justify-content-center flex-column flex-md-row"') ?>
+    <div class="form-group mx-3 my-3">
+  	 <?= form_label('Tipo de Usuario:','Tipo','class="mx-3 d-sm-block text-white"') ?>
+    </div>
+    <?= form_hidden("idEst",$idEst);?>
 	
-		</thead>
-	<tbody>
 
-	<?php
-	$idEstudio=$this->EncuestadorM->Mostrar_idEst($this->session->userdata('id'));
+	<?= form_submit("","Nueva Encuesta",'class="btn btn-success"')?>
 	
-	$Estudio=$this->EncuestadorM->Mostrar_Est($this->session->userdata('id'));
+	<?= form_close()?>
 	
-	$i=0;
-	foreach ($Estudio as $array){
-		$data = array(
-			'name'          => 'radio',
-			'id'            => 'radio'.$i,
-			'value'         => $idEstudio[$i],
-			'checked'       => True,
-			'style'         => 'margin:10px'
-	);
-		if($i!=0){ 
-			
-		?><tr>
-			<td style="text-align:center">
-			<?= $idEstudio[$i];?></td>
-			<td style="text-align:center">
-			<?= $Estudio[$i];?></td>
-			<td style="text-align:center">
-			<?= form_radio($data);$i++;?></td>
-				
-		</tr>
-			
-
-	<?php
-		}else $i++;
-			}
-			
-	 ?>
-	</tbody>
-	</table>
-	<?= form_hidden("totalD",$i-1);?>
-	<?= form_submit("","VER",'class="btn btn-primary"');?>
-	
-	<?= form_close();?>
-	<br><br>
-	
-		
-
-
-	 </div>
-
+<!--<?= $this->session->userdata('id');?>-->
 </body>
 </html>

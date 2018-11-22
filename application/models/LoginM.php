@@ -24,5 +24,14 @@ class LoginM extends CI_Model{
 		}
 		return $tipoU;
 	}
+
+	function Regresaid($data){
+		$query =  $this->db->query('SELECT idUsuario 
+										FROM `USUARIO`
+			 							WHERE NombreU ="'.$data['nombre'].'"
+										AND Contraseña ="'.$data['contra'].'"')->result();
+			$idU = $query[0]->idUsuario;
+			return $idU;
+	}
 }
 ?>

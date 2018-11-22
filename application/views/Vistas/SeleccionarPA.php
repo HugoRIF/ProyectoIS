@@ -1,9 +1,11 @@
-<title>Admin Estudio</title>
+<title>Selecionar P</title>
   </head>
   
+
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Administrador de Estudio</h1>
+      <h1 class="display-3 text-white">seleccionar Participantes</h1>
     </section>
+<body>
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
@@ -17,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
                 <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Inicio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EstudiosC/index">Alta Estudio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Alta Estudio</a>
                 <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Eliminar Estudio</a>
                 <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/Salir">Salir</a>
                 
@@ -26,67 +28,57 @@
         </div>
     </nav>
 <!-- Fin menu de navegacion -->
-<body>
-     </div>
-	 <div class="container-fluid ">
+<div class="container-fluid ">
         <section class="container py-3 mt-3 mb-3">
-            <h3 class="text-uppercase text-center mb-4 ">Mis Estudios</h3>
-            
-	 <?= form_open('/AdminEstC/EstParticular')?>
+            <h3 class="text-uppercase text-center mb-4 ">Seleecionar Participantes</h3>
+     
+<?= form_open('/EparticularC/AsigEncuestas')?>
 	
 	<table class="table table-striped" > 
 
 		<thead >
 		<tr>
-			<th scope="col" style="width:5%">id</th>
-			<th scope="col" style="width:20% ">Estudio</th>
-			<th scope="col" style="width:5% ">Accion</th>
+			<th scope="col" style="width:20%">Nombre de Usuario</th>
+			<th scope="col" style="width:5% ">Encuestas Asignadas</th>
+			
 		</tr>
 	
 		</thead>
 	<tbody>
 
 	<?php
-	$idEstudio=$this->AdminEstM->Mostrar_idEst($this->session->userdata('id'));
-	
-	$Estudio=$this->AdminEstM->Mostrar_Est($this->session->userdata('id'));
-	
+	$participantes = $seleccionados;
 	$i=0;
-	foreach ($Estudio as $array){
-		$data = array(
-			'name'          => 'radio',
-			'id'            => 'radio'.$i,
-			'value'         => $idEstudio[$i],
-			'checked'       => True,
-			'style'         => 'margin:10px'
-	);
-		if($i!=0){ 
+	foreach ($participantes as $array){
+		
 			
 		?><tr>
 			<td style="text-align:center">
-			<?= $idEstudio[$i];?></td>
+			<?= $participantes[$i];?></td>
+			<?= form_hidden("datosU".$i,$participantes[$i]);?>
 			<td style="text-align:center">
-			<?= $Estudio[$i];?></td>
-			<td style="text-align:center">
-			<?= form_radio($data);$i++;?></td>
+			<?= form_input('NumAsig'.$i);$i++;?></td>
 				
 		</tr>
 			
 
 	<?php
-		}else $i++;
+	
 			}
 			
 	 ?>
 	</tbody>
 	</table>
+		<center>
 	<?= form_hidden("totalD",$i-1);?>
-	<?= form_submit("","VER",'class="btn btn-primary"');?>
+	<?= form_hidden("idEst",$idEst);?>
+	<?= form_hidden("idPart",$participantes);?>
 	
+	<?= form_submit("","Asignar",'class="btn btn-success"');?>
 	<?= form_close();?>
 	<br><br>
-	
-		
+		</center>
 
 </body>
+
 </html>

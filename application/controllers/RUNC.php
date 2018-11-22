@@ -9,11 +9,12 @@ class RUNC extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->model('RUNM');
 		$this->load->model("Menu_model");
-        $this->load->library('multi_menu');
+        $this->load->library('session');
 
 	}
 	
 	function index(){
+		echo $this->session->userdata('id');
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/RUN');
 		
@@ -25,6 +26,8 @@ class RUNC extends CI_Controller {
 			'correo' => $this->input->post('correo'),
 			'Tipo' => $this->input->post('Tipo')
 		);
+		$this->session->userdata('id');
+			
 		if($data['nombre']=="" ){
 			echo '<script>alert("Ingresa un usuario");</script>';
 			$this->load->view('Vistas/Encabezado');
@@ -36,6 +39,7 @@ class RUNC extends CI_Controller {
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/RUN');
 		}
+		
 		elseif($data['correo']==""){
 			echo '<script>alert("Ingresa un Correo valido");</script>';
 			$this->load->view('Vistas/Encabezado');
@@ -59,7 +63,12 @@ class RUNC extends CI_Controller {
 	$this->load->view('Vistas/Encabezado');
 	$this->load->view('Vistas/ingresoAS');
 	}
-		
+	function Salir(){
+		$this->session->sess_destroy();
+		$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/LoginC');
+        
+	}
 }
 
 ?>

@@ -8,12 +8,13 @@ class EUC extends CI_Controller {
 		
 		$this->load->helper('form');
 		$this->load->model('EUM');
-		
+		$this->load->library('session');
         $this->load->library('table');
 
 	}
 	
 	function index(){
+		echo $this->session->userdata('id');
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/EUV');
 		
@@ -29,18 +30,29 @@ class EUC extends CI_Controller {
 			}
 			
 		}
-		$this->EUM->EliminarU($Usuarios_eliminar);
+		if($this->EUM->EliminarU($Usuarios_eliminar)==1){
 		echo '<script>alert("Los Usuarios han sido Eliminados");</script>';
-			$this->load->view('Vistas/Encabezado');
+		}else{
+			echo '<script>alert("El Usuario aun tiene al registrado No se puede eliminar");</script>';
+			
+		}
+		$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/EUV');
 
 			
 	}
 	function inicio(){
+		echo $this->session->userdata('id');
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/ingresoAS');
         
-    }
+	}
+	function Salir(){
+		$this->session->sess_destroy();
+		$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/LoginV');
+        
+	}
 		
 }
 

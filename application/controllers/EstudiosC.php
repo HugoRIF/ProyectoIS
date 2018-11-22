@@ -7,26 +7,53 @@ class EstudiosC extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->helper('form');
-		$this->load->model('LoginM');
-		$this->load->model("Menu_model");
-        $this->load->library('multi_menu');
-
+		$this->load->model('EstudiosM');
+		$this->load->library('session');
 	}
-
 	function index(){
-		//$this->load->view('Vistas/Headers');
+		
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/EstudiosV');
     }
     function recibirdatos(){
 		$data = array(
-            'idEst' => $this->input->post('idEst'),
-			'nombreEst' => $this->input->post('nombreEst'),
+            'nombreEst' => $this->input->post('nombreEst'),
 			'DescEst' => $this->input->post('DescEst')			
 		);
-		$this->EstudiosM->crearEstudio($data);
-		$this->load->view('Vistas/Headers');
+		if($data['nombreEst']=="" ){
+			echo '<script>alert("Ingresa un Nombre al Estudio");</script>';
+			$this->load->view('Vistas/Encabezado');
+		    $this->load->view('Vistas/EstudiosV');
+		}
+		elseif($data['DescEst']==""){
+			echo '<script>alert("Ingresa una Descripcion");</script>';
+			$this->load->view('Vistas/Encabezado');
+			$this->load->view('Vistas/EstudiosV');
+		}else{
+		$this->EstudiosM->crearEstudio($data,$this->session->userdata('id'));
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/EstudiosV');
+		}
 	}
-
+	function EstudiosIn(){
+		
+		$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/EstudiosInV');
+	}
+	function EstParticular(){
+		#recupero datos del formulario
+		
+		
+			$idEstudio = $this->input->post('radio');
+		
+		$descripcion=$this->EstudiosM->Mostrar_DescEst($idEstudio);
+		$datos=array(
+			'NombreEst' => $idEstudio,
+			'Descripcion' => $descripcion
+		);
+		$this->load->view('Vistas/Encabezado');
+	$this->load->view('Vistas/EstudioParticular',$datos);
+	
+	}
 }
 ?>

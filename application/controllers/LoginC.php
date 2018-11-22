@@ -8,8 +8,9 @@ class LoginC extends CI_Controller {
 		
 		$this->load->helper('form');
 		$this->load->model('LoginM');
-		$this->load->model("Menu_model");
-        $this->load->library('multi_menu');
+		$this->load->library('session');
+		$this->load->model('AdminEstM');
+		$this->load->model('EncuestadorM');
 
 	}
 	function index(){
@@ -19,11 +20,12 @@ class LoginC extends CI_Controller {
 		
 	}
 	function RecibirDatos(){
-		
+		#recibo datos
 		$data = array(
 			'nombre' => $this->input->post('nombre'),
 			'contra' => $this->input->post('contra')
 		);
+		#verifico que no esten vacios los valores
 	   if($data['nombre']==""){
 		echo '<script>alert("Ingresa un usuario");</script>';
 		$this->load->view('Vistas/Encabezado');
@@ -34,22 +36,35 @@ class LoginC extends CI_Controller {
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/LoginV');
 	}else{
+		#Verifico que exitan los datos
 	$ingresaA=$this->LoginM->checaU($data);
-	switch ($ingresaA) {
+		#guardo datos de la sesion
+	$idU=$this->LoginM->Regresaid($data);
+	$usuario_data = array(
+		'id' => $idU,
+		);
+	 $this->session->set_userdata($usuario_data);
+	 $idSesion= $this->session->userdata('id');
+	 #direcciono segun los usuarios
+	 switch ($ingresaA) {
 		case 0:
 		echo '<script>alert("Usuario y/o Contraseña invalidos");</script>';
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/LoginV');
 		break;
 		case 1:
-			$this->load->view('Vistas/Encabezado');
+		
+			echo $idSesion;
+		$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoAS');
 			break;
 		case 2:
+		echo $idSesion;
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoAE');
 			break;
-		case 3:
+		case 4:
+		echo $idSesion;
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoE');
 			break;
