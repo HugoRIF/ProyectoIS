@@ -5,12 +5,11 @@ class EstudiosM extends CI_Model{
         parent::__construct();
         $this->load->database();
     }
-    function crearEstudio($data){
-        $this->db->insert('ESTUDIO',array('NombreEs'=>$data['nombreEst'],'DescripcionEs'=>$data['DescEst']));
+    function crearEstudio($data,$idSesion){
+        $this->db->insert('ESTUDIO',array('NombreEs'=>$data['nombreEst'],'DescripcionEs'=>$data['DescEst'],'idAdminEstudio'=>$idSesion));
         
-    }
-     function Mostrar_Est($idSesion){
-        $result=$this->db->query('SELECT NombreEs FROM `ESTUDIOS_DE USUARIO` eu , ESTUDIO e WHERE eu.idEstudio = e.idEstudio AND eu.idUsuario ='.$idSesion)->result();
+    } function Mostrar_Est($idSesion){
+        $result=$this->db->query('SELECT NombreEs FROM `ESTUDIO`  WHERE idAdminEstudio = '.$idSesion)->result();
        #$tam=$result->count();
        $arrayNombreEst = array('');
        $i=0;
@@ -22,7 +21,7 @@ class EstudiosM extends CI_Model{
        
    }
    function Mostrar_idEst($idSesion){
-    $result=$this->db->query('SELECT eu.idEstudio FROM `ESTUDIOS_DE USUARIO` eu , ESTUDIO e WHERE eu.idEstudio = e.idEstudio AND eu.idUsuario ='.$idSesion)->result();
+    $result=$this->db->query('SELECT idEstudio FROM ESTUDIO WHERE idAdminEstudio ='.$idSesion)->result();
    #$tam=$result->count();
    $arrayNombreEst = array('');
    $i=0;

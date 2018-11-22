@@ -7,8 +7,7 @@
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
-            
-			<img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+            <img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
             Menu
         </div>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +15,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
-                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Inicio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Alta Estudio</a>
-                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Eliminar Estudio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/Salir">Salir</a>
+                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/EncuestadorC/inicio">Inicio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EncuestadorC/index">Mis Estudios</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EncuestadorC/Salir">Salir</a>
                 
             </div>
             
@@ -30,31 +28,24 @@
 <body>
 <div class="container-fluid">
         <section class="container py-3 mt-3 mb-3">
-            <h3 class="text-uppercase text-center mb-4 "><?=  $NombreEst ?></h3>
-            <p class="lead text-center mb-4 "><?=  $Descripcion ?></p>
+            <h2 class="text-uppercase text-center mb-4 "><?=  $NombreEst ?></h2>
+            <h3 class="lead text-center mb-4 "><?=  $Descripcion ?></h3>
+            <p class="lead text-center mb-4 ">
+            Encuestas Asignadas: <?= $EAsignadas?>
+            <br>
+            Encuestas Faltantes: 0
+            </p>
 
 </div>
 <center>	
 	<?= form_open('/EparticularC/Cuest','class="form-horizontal justify-content-center flex-column flex-md-row"') ?>
-    <?
-    $Accion= array(
-			'name' => 'Accion',
-			'placeholder' => ''
-    );?>
-<?php $options = array(
-        1         => 'Crear Encuesta',
-        2           => 'Eliminar Encuesta',
-        3           => 'Modificar Encuesta',
-        4           =>'Seleccionar Participantes',
-        );?>
-	<div class="form-group mx-3 my-3">
+    <div class="form-group mx-3 my-3">
   	 <?= form_label('Tipo de Usuario:','Tipo','class="mx-3 d-sm-block text-white"') ?>
-     <?= form_dropdown($Accion, $options,'','class="btn btn-primary dropdown-toggle"') ?>
-	</div>
+    </div>
     <?= form_hidden("idEst",$idEst);?>
 	
 
-	<?= form_submit("","Ir",'class="btn btn-primary"')?>
+	<?= form_submit("","Nueva Encuesta",'class="btn btn-success"')?>
 	
 	<?= form_close()?>
 	

@@ -1,12 +1,11 @@
-<title>Selecionar P</title>
+<title>Reactivos</title>
   </head>
   
 
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">seleccionar Participantes</h1>
+      <h1 class="display-3 text-white">Alta Cuestionario</h1>
     </section>
-<body>
-<!-- Inicio Menu Navegacion -->
+<body><!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
             
@@ -28,65 +27,40 @@
         </div>
     </nav>
 <!-- Fin menu de navegacion -->
-<div class="container-fluid ">
-        <section class="container py-3 mt-3 mb-3">
-            <h3 class="text-uppercase text-center mb-4 ">Seleecionar Participantes</h3>
-     
-<?= form_open('/EparticularC/SeleccionarU')?>
-	
-	<table class="table table-striped" > 
 
-		<thead >
-		<tr>
-			<th scope="col" style="width:20%">Nombre de Usuario</th>
-			<th scope="col" style="width:5% ">Tipo</th>
-			<th scope="col" >Seleccionar</th>
-		</tr>
+<body>
+<div class="form">
 	
-		</thead>
-	<tbody>
+<?=form_open("/ReactivosC/recibirdatos", 'class="form-group"') ?>
+<?php
+    $Pregunta = array(
+        'name' =>'Pregunta',
+        'placeholder' =>'Escriba su pregunta'
+    );
+    $RespuestaPree = array(
+            'name' => 'RespuestaPree',
+            'placeholder' => 'Respuesta preestablecida'
+    );
+    
+    
+?>
+<?= form_label('Pregunta: ','Pregunta','class="col-sm-2 col-form-label"')?>
+<?= form_input($Pregunta) ?>
+<br><br><br>
+<?= form_label('Respuesta preestablecida: ','RespuestaPree','class="col-sm-2 col-form-label"')?>
+<?= form_textarea($RespuestaPree) ?>
+<br><br><br>
 
-	<?php
-	$Usuario=$this->ParticularM->MostrarU();
-	$idUsuario=$this->ParticularM->MostraridU();
-	$Tipo=$this->ParticularM->MostrarTipo();
+<center>
+<?= form_submit('','Añadir reactivo','class="btn btn-success"') ?>
 
-	
-	$i=0;
-	foreach ($Usuario as $array){
-		if($i!=0){ 
-			
-		?><tr>
-			<td style="text-align:center">
-			<?= $Usuario[$i];?></td>
-			<td style="text-align:center">
-			<?= $Tipo[$i];?></td>
-			<td style="text-align:center">
-			<?= form_checkbox('datosU'.$i,$idUsuario[$i]);$i++;?></td>
-				
-		</tr>
-			
 
-	<?php
-		}else $i++;
-			}
-			
-	 ?>
-	</tbody>
-	</table>
-		<center>
-	<?= form_hidden("totalD",$i-1);?>
-	<?= form_hidden("idEst",$idEst);?>
-	
-	<?= form_submit("","Seleccionar",'class="btn btn-primary"');?>
-	<?= form_close();?>
-	<br><br>
-	<a class="btn btn-danger" 
-	href="http://192.168.64.2/ProyectoIS/index.php/EUC/inicio" 
-	role="button">Cancelar</a>
-	
-		</center>
+<a class="btn btn-success"
+href="http://localhost/ProyectoIng/index.php/MisCuestionariosC"
+role="button">Terminar Cuestionario</a>
+</center>
+<?php form_close() ?>
 
+</div>
 </body>
-
 </html>

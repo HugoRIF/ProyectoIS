@@ -28,9 +28,15 @@ class EparticularC extends CI_Controller {
             break;
             case 2:
             echo $data['idEst'];
-            break;
+			$this->load->view('Vistas/Encabezado');
+            $this->load->view('Vistas/EliminarCuestionariosV',$data);
+            
+			break;
             case 3:
-            echo $data['idEst'];
+			echo $data['idEst'];
+			$this->load->view('Vistas/Encabezado');
+            $this->load->view('Vistas/ModCuestionariosV',$data);
+            
             break;
             case 4:
             $this->load->view('Vistas/Encabezado');
@@ -45,6 +51,8 @@ class EparticularC extends CI_Controller {
 function SeleccionarU(){
 
 		$total=$this->input->post('totalD');
+		$idEst=$this->input->post('idEst');
+		
 		$Usuarios_Seleccionar=array();
 		for ($i=1; $i <= $total ; $i++) { 
 			$datos=$this->input->post('datosU'.$i);
@@ -53,11 +61,48 @@ function SeleccionarU(){
 			}
 			
 		}
-		$this->ParticularM->SelecionarU($Usuarios_Seleccionar);
+		$data = array(
+			'idEst' => $this->input->post('idEst'),
+			'seleccionados' => $Usuarios_Seleccionar
+        );
+		$this->ParticularM->SelecionarU($Usuarios_Seleccionar,$idEst);
 		echo '<script>alert("Los Usuarios han sido Selecionados");</script>';
-			
+		
 		$this->load->view('Vistas/Encabezado');
-			$this->load->view('Vistas/SeleccionarP');
+			$this->load->view('Vistas/SeleccionarPA',$data);
 
 }
+function AsigEncuestas(){
+
+	$total=$this->input->post('totalD');
+	$idEst=$this->input->post('idEst');
+	
+	$Usuarios_Seleccionar=array();
+	for ($i=0; $i <= $total ; $i++) { 
+		$datos=$this->input->post('datosU'.$i);
+		if($datos!=""){
+			 array_push($Usuarios_Seleccionar,$datos);
+		}
+		
+	}
+	$Encuestas_asigadas=array();
+	for ($i=0; $i <= $total ; $i++) { 
+		$datos=$this->input->post('NumAsig'.$i);
+		if($datos!=""){
+			 array_push($Encuestas_asigadas,$datos);
+		}
+		
+	}
+	$data = array(
+		'idEst' => $this->input->post('idEst'),
+		'seleccionados' => $Usuarios_Seleccionar
+	);
+	$this->ParticularM->AsignarE($Usuarios_Seleccionar,$idEst,$Encuestas_asigadas);
+	echo '<script>alert("Los Usuarios han sido Selecionados");</script>';
+	
+	$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/SeleccionarPA',$data);
+
+}
+
 }

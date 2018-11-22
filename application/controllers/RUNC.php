@@ -33,21 +33,13 @@ class RUNC extends CI_Controller {
 			$this->load->view('Vistas/Encabezado');
 		    $this->load->view('Vistas/RUN');
 		}
-		elseif($data['nombre']>10){
-			echo '<script>alert("Ingresa un Nombre mas Corto");</script>';
-			$this->load->view('Vistas/Encabezado');
-			$this->load->view('Vistas/RUN');
-		}
+		
 		elseif($data['contra']==""){
 			echo '<script>alert("Ingresa una Contraseña");</script>';
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/RUN');
 		}
-		elseif($data['contra']>10){
-			echo '<script>alert("Ingresa una Contraseña más Pequeña");</script>';
-			$this->load->view('Vistas/Encabezado');
-			$this->load->view('Vistas/RUN');
-		}
+		
 		elseif($data['correo']==""){
 			echo '<script>alert("Ingresa un Correo valido");</script>';
 			$this->load->view('Vistas/Encabezado');

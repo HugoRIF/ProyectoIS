@@ -30,9 +30,12 @@ class EUC extends CI_Controller {
 			}
 			
 		}
-		$this->EUM->EliminarU($Usuarios_eliminar);
+		if($this->EUM->EliminarU($Usuarios_eliminar)==1){
 		echo '<script>alert("Los Usuarios han sido Eliminados");</script>';
+		}else{
+			echo '<script>alert("El Usuario aun tiene al registrado No se puede eliminar");</script>';
 			
+		}
 		$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/EUV');
 

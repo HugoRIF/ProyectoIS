@@ -1,11 +1,10 @@
-<title>Registrar c</title>
+<title>Admin Estudio</title>
   </head>
   
-
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Alta Cuestionario</h1>
+      <h1 class="display-3 text-white">Modificar Encuestas</h1>
     </section>
-<body><!-- Inicio Menu Navegacion -->
+<!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
             
@@ -18,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
                 <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Inicio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Alta Estudio</a>
+                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EstudiosC/index">Alta Estudio</a>
                 <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Eliminar Estudio</a>
                 <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/Salir">Salir</a>
                 
@@ -29,30 +28,39 @@
 <!-- Fin menu de navegacion -->
 
 <body>
-<div class="form">
-	
-<?=form_open("/CuestionarioC/recibirdatos", 'class="form-group"') ?>
+<center>
+<h1>Eliminar Cuestionario</h1>
+
+<?=form_open("/ModCuestionariosC/recibirdatosEliminar", 'class="form-group"') ?>
 <?php
+    $idCuestionario = array(
+        'name' =>'idCuestionario',
+        'placeholder' =>'idCuestionario'
+    );
     $numCuestionario = array(
             'name' => 'numCuestionario',
-            'placeholder' => 'Nobre de Cuestionario'
+            'placeholder' => 'Numero de Cuestionario'
+    );
+    $idEst = array(
+        'name' =>'idEst',
+        'placeholder' =>'Id del estudio al que pertenece el Cuestionario'
     );
     
 ?>
-<?= form_hidden('idEst',$idEst) ?>
-<?= form_label('Nombre del Cuestionario','idEst','class="col-sm-2 col-form-label"')?>
-<br>
-<?= form_textarea($numCuestionario) ?>
+<?= form_label('id del Cuestionario: ','idCuestionario','class="col-sm-2 col-form-label"')?>
+<?= form_input($idCuestionario) ?>
 <br><br><br>
-<center>
-<?= form_submit('','Dar de alta cuestionario','class="btn btn-success"') ?>
+<?= form_label('numero de cuestionario: ','numCuestionario','class="col-sm-2 col-form-label"')?>
+<?= form_input($numCuestionario) ?>
+<br><br><br>
+<?= form_label('Id del estudio al que pertenece el Cuestionario: ','idEst','class="col-sm-2 col-form-label"')?>
+<br>
+<?= form_textarea($idEst) ?>
+<br><br><br>
 
-<a class="btn btn-success"
-href="http://192.168.64.2/ProyectoIS/index.php/EstudiosC"
-role="button">Ver Cuestionarios en este estudio</a>
-</center>
+<?= form_submit('','Eliminar cuestionario','class="btn btn-success"') ?>
 <?php form_close() ?>
-
+</center><br>
 </div>
 </body>
 </html>

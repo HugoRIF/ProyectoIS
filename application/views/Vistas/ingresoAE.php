@@ -26,6 +26,7 @@
         </div>
     </nav>
 <!-- Fin menu de navegacion -->
+<body>
      </div>
 	 <div class="container-fluid ">
         <section class="container py-3 mt-3 mb-3">
@@ -46,8 +47,9 @@
 	<tbody>
 
 	<?php
-	$Estudio=$this->AdminEstM->Mostrar_Est($this->session->userdata('id'));
 	$idEstudio=$this->AdminEstM->Mostrar_idEst($this->session->userdata('id'));
+	
+	$Estudio=$this->AdminEstM->Mostrar_Est($this->session->userdata('id'));
 	
 	$i=0;
 	foreach ($Estudio as $array){

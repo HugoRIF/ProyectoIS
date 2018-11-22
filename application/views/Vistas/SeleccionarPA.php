@@ -32,43 +32,38 @@
         <section class="container py-3 mt-3 mb-3">
             <h3 class="text-uppercase text-center mb-4 ">Seleecionar Participantes</h3>
      
-<?= form_open('/EparticularC/SeleccionarU')?>
+<?= form_open('/EparticularC/AsigEncuestas')?>
 	
 	<table class="table table-striped" > 
 
 		<thead >
 		<tr>
 			<th scope="col" style="width:20%">Nombre de Usuario</th>
-			<th scope="col" style="width:5% ">Tipo</th>
-			<th scope="col" >Seleccionar</th>
+			<th scope="col" style="width:5% ">Encuestas Asignadas</th>
+			
 		</tr>
 	
 		</thead>
 	<tbody>
 
 	<?php
-	$Usuario=$this->ParticularM->MostrarU();
-	$idUsuario=$this->ParticularM->MostraridU();
-	$Tipo=$this->ParticularM->MostrarTipo();
-
-	
+	$participantes = $seleccionados;
 	$i=0;
-	foreach ($Usuario as $array){
-		if($i!=0){ 
+	foreach ($participantes as $array){
+		
 			
 		?><tr>
 			<td style="text-align:center">
-			<?= $Usuario[$i];?></td>
+			<?= $participantes[$i];?></td>
+			<?= form_hidden("datosU".$i,$participantes[$i]);?>
 			<td style="text-align:center">
-			<?= $Tipo[$i];?></td>
-			<td style="text-align:center">
-			<?= form_checkbox('datosU'.$i,$idUsuario[$i]);$i++;?></td>
+			<?= form_input('NumAsig'.$i);$i++;?></td>
 				
 		</tr>
 			
 
 	<?php
-		}else $i++;
+	
 			}
 			
 	 ?>
@@ -77,14 +72,11 @@
 		<center>
 	<?= form_hidden("totalD",$i-1);?>
 	<?= form_hidden("idEst",$idEst);?>
+	<?= form_hidden("idPart",$participantes);?>
 	
-	<?= form_submit("","Seleccionar",'class="btn btn-primary"');?>
+	<?= form_submit("","Asignar",'class="btn btn-success"');?>
 	<?= form_close();?>
 	<br><br>
-	<a class="btn btn-danger" 
-	href="http://192.168.64.2/ProyectoIS/index.php/EUC/inicio" 
-	role="button">Cancelar</a>
-	
 		</center>
 
 </body>

@@ -30,7 +30,7 @@ class EstudiosC extends CI_Controller {
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/EstudiosV');
 		}else{
-		$this->EstudiosM->crearEstudio($data);
+		$this->EstudiosM->crearEstudio($data,$this->session->userdata('id'));
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/EstudiosV');
 		}

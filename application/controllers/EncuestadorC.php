@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class AdminEstC extends CI_Controller {
+class EncuestadorC extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
 		
 		$this->load->helper('form');
-		$this->load->model('AdminEstM');
+		$this->load->model('EncuestadorM');
 		$this->load->library('session');
 	}
 	
@@ -15,7 +15,7 @@ class AdminEstC extends CI_Controller {
 		$idSesion= $this->session->userdata('id');
 	
 		$this->load->view('Vistas/Encabezado');
-	$this->load->view('Vistas/ingresoAE');
+	$this->load->view('Vistas/ingresoE');
         }
         
 
@@ -24,22 +24,24 @@ class AdminEstC extends CI_Controller {
 	function inicio(){
 	
 	$this->load->view('Vistas/Encabezado');
-	$this->load->view('Vistas/ingresoAE');
+	$this->load->view('Vistas/ingresoE');
 	}
-	function EstParticular(){
+	function EParticular(){
 		#recupero datos del formulario
 		
 		
 			$idEstudio = $this->input->post('radio');
-		
-		$descripcion=$this->AdminEstM->Mostrar_DescEst($idEstudio);
+			$idSesion= $this->session->userdata('id');
+	
+		$descripcion=$this->EncuestadorM->Mostrar_DescEst($idEstudio);
 		$datos=array(
 			'idEst'=> $idEstudio,
-			'NombreEst' => $this->AdminEstM->Mostrar_NombreEst($idEstudio),
-			'Descripcion' => $descripcion
+			'NombreEst' => $this->EncuestadorM->Mostrar_NombreEst($idEstudio),
+			'Descripcion' => $descripcion,
+			'EAsignadas' =>$this->EncuestadorM->Mostrar_EAsignadas($idSesion,$idEstudio)
 		);
 	$this->load->view('Vistas/Encabezado');
-	$this->load->view('Vistas/EstudioParticular',$datos);
+	$this->load->view('Vistas/EstudioParticularE',$datos);
 	}
 	function Salir(){
 		$this->session->sess_destroy();

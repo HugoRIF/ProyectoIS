@@ -10,6 +10,8 @@ class LoginC extends CI_Controller {
 		$this->load->model('LoginM');
 		$this->load->library('session');
 		$this->load->model('AdminEstM');
+		$this->load->model('EncuestadorM');
+
 	}
 	function index(){
 		$this->load->view('Vistas/Encabezado');
@@ -61,7 +63,7 @@ class LoginC extends CI_Controller {
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoAE');
 			break;
-		case 3:
+		case 4:
 		echo $idSesion;
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoE');

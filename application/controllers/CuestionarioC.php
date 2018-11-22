@@ -1,24 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class CuestionariosC extends CI_Controller {
-	function __contruct(){
-		parent::__contruct();
-        $this->load->helper('form');
-        $this->load->model('CuestionariosM');
+
+class CuestionarioC extends CI_Controller {
+
+	function __construct(){
+		parent::__construct();
+		
+		$this->load->helper('form');
+		$this->load->model('CuestionariosM');
+		$this->load->library('session');
 	}
+	
 	function index(){
-		$this->load->view('Vistas/Headers');
+		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/CuestionariosV');
     }
     function recibirdatos(){
 		$data = array(
-            'idCuestionario' => $this->input->post('idCuestionario'),
-			'numCuestionario' => $this->input->post('numCuestionario'),
+            'numCuestionario' => $this->input->post('numCuestionario'),
 			'idEst' => $this->input->post('idEst')			
 		);
 		$this->CuestionariosM->crearCuestionario($data);
-		$this->load->view('Vistas/Headers');
-		$this->load->view('Vistas/CuestionariosV');
+		$this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/ReactivosV',$data);
 	}
 }
 ?>
