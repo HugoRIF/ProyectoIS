@@ -8,7 +8,7 @@ class ParticularM extends CI_Model{
 	
 	function MostrarU(){
 		
-		 $result=$this->db->query('SELECT `NombreU` FROM `USUARIO` WHERE Tipo = 4 ORDER BY `idUsuario` ')->result();
+		 $result=$this->db->query('SELECT `NombreU` FROM `USUARIO` WHERE Tipo = 3 ORDER BY `idUsuario` ')->result();
 		#$tam=$result->count();
 		$arrayNombreU = array('');
 		$i=0;
@@ -20,7 +20,7 @@ class ParticularM extends CI_Model{
 		
 	}
 	function MostraridU(){
-		$result=$this->db->query('SELECT `idUsuario` FROM `USUARIO` WHERE Tipo = 4 ORDER BY `idUsuario` ')->result();
+		$result=$this->db->query('SELECT `idUsuario` FROM `USUARIO` WHERE Tipo = 3 ORDER BY `idUsuario` ')->result();
 	  #$tam=$result->count();
 	  $arrayNombreU = array('');
 	  $i=0;
@@ -32,7 +32,7 @@ class ParticularM extends CI_Model{
 	  
   }
 	function MostrarTipo(){
-		$result=$this->db->query('SELECT Tipo FROM USUARIO  WHERE Tipo = 4 ORDER BY idUsuario ')->result();
+		$result=$this->db->query('SELECT Tipo FROM USUARIO  WHERE Tipo = 3 ORDER BY idUsuario ')->result();
 	   #$tam=$result->count();
 	   $arrayNombreU = array('');
 	   $i=0;

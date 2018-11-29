@@ -36,7 +36,9 @@ class AdminEstC extends CI_Controller {
 		$datos=array(
 			'idEst'=> $idEstudio,
 			'NombreEst' => $this->AdminEstM->Mostrar_NombreEst($idEstudio),
-			'Descripcion' => $descripcion
+			'Descripcion' => $descripcion,
+			'CCuestionarios' => $this->AdminEstM->Mostrar_CantCuestionarios($idEstudio),
+			
 		);
 	$this->load->view('Vistas/Encabezado');
 	$this->load->view('Vistas/EstudioParticular',$datos);

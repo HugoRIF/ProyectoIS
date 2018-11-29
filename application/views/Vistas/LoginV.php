@@ -13,7 +13,7 @@
             <p class="lead text-center mb-4 text-white">Por favor Inicia Sesión</p>
 		
 			<?= form_open('/LoginC/RecibirDatos','class="form-inline justify-content-center flex-column flex-md-row"') ?>
-			<?
+			<?php
 				$nombre = array(
 				'name' => 'nombre',
 				'placeholder' => 'Escribe tu Usuario'
@@ -44,7 +44,7 @@
 	<footer class="container-fluid bg-dark">
         <div class="row text-white py-4 text-white">
             <div class="col-md-5">
-                <img src="http://192.168.64.2/ProyectoIS/img/uam-i.png" alt="" width="50px" height="auto" class="float-left mr-3">
+                <img src="<?= base_url()?>img/uam-i.png" alt="" width="50px" height="auto" class="float-left mr-3">
                 <h4 class="lead">Universidad Aútonoma Metropolitana</h4>
                 <footer class="blockquote-footer">Equipo OMEGALab <cite title="Source Title">Bluuweb</cite></footer>
             </div>

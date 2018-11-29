@@ -47,7 +47,32 @@ function Mostrar_NombreEst($idestu){
    return $descrip;
 }
 
-
+function Mostrar_CantCuestionarios($idestu){
+    $result=$this->db->query('SELECT count(*) AS cantidad FROM CUESTIONARIO WHERE idEstudio='.$idestu)->result();
+   
+   $descrip = $result[0]->cantidad;
+   return $descrip;
+}
+function Mostrar_NomCuestionarios($idestu){
+    $result=$this->db->query('SELECT Cuestionario FROM CUESTIONARIO WHERE idEstudio='.$idestu)->result();
+   $cuest=array('');
+   $i=0;
+   foreach ($result as $value) {
+    array_push($cuest,$result[$i]->Cuestionario);
+    $i++;
+   }
+   return $cuest;
+}
+function Mostrar_idCuestionarios($idestu){
+    $result=$this->db->query('SELECT idCuestionario FROM CUESTIONARIO WHERE idEstudio='.$idestu)->result();
+   $cuest=array('');
+   $i=0;
+   foreach ($result as $value) {
+    array_push($cuest,$result[$i]->idCuestionario);
+    $i++;
+   }
+   return $cuest;
+}
 }
 
 

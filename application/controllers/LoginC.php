@@ -63,7 +63,7 @@ class LoginC extends CI_Controller {
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoAE');
 			break;
-		case 4:
+		case 3:
 		echo $idSesion;
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoE');

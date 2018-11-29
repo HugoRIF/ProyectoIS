@@ -54,7 +54,42 @@ function Mostrar_EAsignadas($idSesion,$idEst){
     $descrip = $result[0]->EAsignadas;
     return $descrip;
 }
-
+function Mostrar_Reactivo($idEst,$i){
+    $result=$this->db->query('SELECT Pregunta 
+                            FROM PREGUNTA 
+                            WHERE idCuestionario =(SELECT idCuestionario FROM CUESTIONARIO WHERE idEstudio='.$idEst.')')->result();
+   #$tam=$result->count();
+   $pregunta=$result[$i]->Pregunta;
+   return $pregunta ;
+   
+}
+function Mostrar_idReactivo($idEst,$i){
+    $result=$this->db->query('SELECT idPregunta 
+                            FROM PREGUNTA 
+                            WHERE idCuestionario =(SELECT idCuestionario FROM CUESTIONARIO WHERE idEstudio='.$idEst.')')->result();
+   #$tam=$result->count();
+   $pregunta=$result[$i]->idPregunta;
+   return $pregunta ;
+   
+}
+function Mostrar_Respuestas($idP){
+    $result=$this->db->query('SELECT RespuestaPree
+                            FROM RESPUESTA_PREE 
+                            WHERE idPregunta ='.$idP)->result();
+   #$tam=$result->count();
+   $Respuesta=explode("#",$result[0]->RespuestaPree);
+   return $Respuesta ;
+   
+}
+function Mostrar_cantReactivo($idEst){
+    $result=$this->db->query('SELECT count(*) as cant
+                            FROM PREGUNTA 
+                            WHERE idCuestionario =(SELECT idCuestionario FROM CUESTIONARIO WHERE idEstudio='.$idEst.')')->result();
+   #$tam=$result->count();
+   $pregunta=$result[0]->cant;
+   return $pregunta ;
+   
+}
 }
 
 
