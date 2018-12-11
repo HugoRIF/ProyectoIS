@@ -46,14 +46,18 @@ class CuestionarioC extends CI_Controller {
 						
 		);
 	
+	
 		if($data['TipoP']=="MULTIPLE"){
 			$data['opcion1']=$this->input->post('opcion1');
 			$data['opcion2']=$this->input->post('opcion2');
 			$data['opcion3']=$this->input->post('opcion3');
 		}
+		echo($data['idEst']."<br>");
+	echo($data['idCuestionario']."<br>");
 		$this->CuestionariosM->Agrega_reactivo($data);
 		$this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/ReactivosV',$data);
-    }
+	}
+	
 }
 ?>

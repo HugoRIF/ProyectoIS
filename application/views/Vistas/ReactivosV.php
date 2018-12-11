@@ -32,15 +32,16 @@
             <h3 class="text-uppercase text-center mb-4 "> Creacion de reactivo</h3>
             <p class="lead text-center mb-4 "></p>
 
-</div>
+
 <body>
-<div class="form">
+<div class="form justify-content-center flex-column flex-md-row">
 	
 <?=form_open("/CuestionarioC/AgregaReactivo", 'class="form-group"') ?>
 <?php
     $Pregunta = array(
         'name' =>'Pregunta',
-        'placeholder' =>'Escriba su pregunta'
+        'placeholder' =>'Escriba su pregunta',
+        'class'=>"col-8 "
     );
     $RespuestaPree = array(
             'name' => 'RespuestaPree',
@@ -49,8 +50,10 @@
     
     
 ?>
+
 <?= form_label('Pregunta: ','Pregunta','class="col-sm-2 col-form-label"')?>
 <?= form_input($Pregunta) ?>
+
 <br><br><br>
 <?= form_label('Como sera la Respuesta preestablecida: ','RespuestaPree','class="col-sm-4 col-form-label"')?>
 <table class="table table-striped" > 
@@ -119,11 +122,11 @@
 
 
 <a class="btn btn-success"
-href="<?= base_url()?>index.php/EstudiosC/EstudiosIn"
+href="<?= base_url()?>index.php/AdminEstC/inicio"
 role="button">Terminar Cuestionario</a>
 </center>
 <?php form_close() ?>
-
+</div>
 </div>
 </body>
 </html>

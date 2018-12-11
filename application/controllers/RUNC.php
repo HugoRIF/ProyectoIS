@@ -8,8 +8,7 @@ class RUNC extends CI_Controller {
 		
 		$this->load->helper('form');
 		$this->load->model('RUNM');
-		$this->load->model("Menu_model");
-        $this->load->library('session');
+	  $this->load->library('session');
 
 	}
 	

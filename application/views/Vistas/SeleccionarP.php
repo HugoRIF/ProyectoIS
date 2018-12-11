@@ -31,16 +31,16 @@
 <div class="container-fluid ">
         <section class="container py-3 mt-3 mb-3">
             <h3 class="text-uppercase text-center mb-4 ">Seleecionar Participantes</h3>
-     
+			<p> <?=$idEst ?>  <?= $idCuest?></p>
 <?= form_open('/EparticularC/SeleccionarU')?>
 	
 	<table class="table table-striped" > 
 
 		<thead >
 		<tr>
-			<th scope="col" style="width:20%">Nombre de Usuario</th>
+			<th scope="col" style="width:10%">Nombre de Usuario</th>
 			<th scope="col" style="width:5% ">Tipo</th>
-			<th scope="col" >Seleccionar</th>
+			<th scope="col" style="width:3% " >Seleccionar</th>
 		</tr>
 	
 		</thead>
@@ -61,7 +61,7 @@
 			<?= $Usuario[$i];?></td>
 			<td style="text-align:center">
 			<?= $Tipo[$i];?></td>
-			<td style="text-align:center">
+			<td style="text-align:left">
 			<?= form_checkbox('datosU'.$i,$idUsuario[$i]);$i++;?></td>
 				
 		</tr>
@@ -77,7 +77,7 @@
 		<center>
 	<?= form_hidden("totalD",$i-1);?>
 	<?= form_hidden("idEst",$idEst);?>
-	
+	<?= form_hidden("idCuest",$idCuest);?>
 	<?= form_submit("","Seleccionar",'class="btn btn-primary"');?>
 	<?= form_close();?>
 	<br><br>

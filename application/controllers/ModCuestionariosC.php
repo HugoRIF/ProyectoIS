@@ -36,7 +36,10 @@ class ModCuestionariosC extends CI_Controller {
 		
         $this->load->view('Vistas/Encabezado');
 		$this->load->view('Vistas/EliminarCuestionariosV',$data);}else{
-			
+			echo '<script>alert("Hay un problema en la Base de datosx");</script>';
+		
+        $this->load->view('Vistas/Encabezado');
+		$this->load->view('Vistas/EliminarCuestionariosV',$data);
 		}
 	}
 }

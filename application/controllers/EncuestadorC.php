@@ -46,19 +46,27 @@ class EncuestadorC extends CI_Controller {
 	function Cuest(){
 		
 		$numerodeiter=$this->input->post('NPregunta') ;
-		$cantidadPre=$this->EncuestadorM->Mostrar_cantReactivo($this->input->post('idEst'));
+		$cuest=$this->input->post('idCuest');
+		$cantidadPre=$this->EncuestadorM->Mostrar_cantReactivo($cuest);
 		if($numerodeiter >= $cantidadPre ){
 			echo '<script>alert("Encuesta Terminada");</script>';
-			
+			$respuesta=$this->input->post('respuestaCampo');
+				$idPregunta = $this->EncuestadorM->Mostrar_idReactivo($this->input->post('idEst'),$this->input->post('NPregunta')-1);
+				$GuardaR=$this->EncuestadorM->Guardar_Respuestas($respuesta,$idPregunta);
+
 			$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/ingresoE');
 		}else{
 			if($numerodeiter>0){
-				$respuesta=$this->input->post('respuestaCampo') ;
-				
+				$respuesta=$this->input->post('respuestaCampo');
+				$idPregunta = $this->EncuestadorM->Mostrar_idReactivo($this->input->post('idEst'),$this->input->post('NPregunta')-1);
+				$GuardaR=$this->EncuestadorM->Guardar_Respuestas($respuesta,$idPregunta);
+
 			}
 			$datos=array(
 				'idEst'=>  $this->input->post('idEst'),
+				'idCuest'=>  $this->input->post('idCuest'),
+				
 				'NombreEst' => $this->EncuestadorM->Mostrar_NombreEst($this->input->post('idEst')),
 				
 				'NPregunta'=>  $this->input->post('NPregunta'),

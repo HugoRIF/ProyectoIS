@@ -43,22 +43,34 @@ class ParticularM extends CI_Model{
 	   return $arrayNombreU ;
    }
 
-   function SelecionarU($arreglo,$id){
+   function SelecionarU($arreglo,$idE,$idC){
 		foreach ($arreglo as $nombre) {
-		$query=$this->db->query('INSERT INTO `ESTUDIOS_DE_ENCUESTADOR` (idEncuestador,idEstudio) VALUES ('.$nombre.','.$id.') ');
+		$query=$this->db->query('INSERT INTO `ESTUDIOS_DE_ENCUESTADOR` (idUsuario,idEstudio,idCuestionario) VALUES ('.$nombre.','.$idE.','.$idC.') ');
 
 	   }
 	   return 1;
    }
-   function AsignarE($Usuarios_Seleccionar,$idEst,$Encuestas_asigadas){
+   function AsignarE($Usuarios_Seleccionar,$idEst,$Encuestas_asigadas,$idCuest){
 	$i=0;
 	foreach ($Usuarios_Seleccionar as $idU) {
-	$query=$this->db->query('UPDATE `ESTUDIOS_DE_ENCUESTADOR`
-	 SET `EAsignadas`='.$Encuestas_asigadas[$i].'
-	  WHERE `idEncuestador`='.$idU.' 
-	  AND `idEstudio`='.$idEst);
+	$query=$this->db->query('UPDATE ESTUDIOS_DE_ENCUESTADOR
+	 SET EAsignadas='.$Encuestas_asigadas[$i].'
+	  WHERE idUsuario=(SELECT idUsuario FROM USUARIO WHERE NombreU ="'.$Usuarios_Seleccionar[$i].'")
+	  AND idCuestionario='.$idCuest);
 		$i++;
    }
    return 1;
+}
+function MostrarP($arreglo){
+		#$tam=$result->count();
+		$arrayNombreU = array('');
+		$i=0;
+		 foreach ($arreglo as $res) { 
+			$result=$this->db->query('SELECT `NombreU` FROM `USUARIO` WHERE idUsuario='.$arreglo[$i])->result();
+	
+			array_push($arrayNombreU,$result[0]->NombreU);
+			$i++;
+		}
+		return $arrayNombreU ;
 }
 }

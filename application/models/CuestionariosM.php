@@ -21,10 +21,11 @@ class CuestionariosM extends CI_Model{
     }
     function Agrega_reactivo($data){
       
-        $insertaP=$this->db->query('INSERT INTO PREGUNTA(Pregunta,idTipoP,idCuestionario)
+        $insertaP=$this->db->query('INSERT INTO PREGUNTA (Pregunta,idTipoP,idCuestionario)
                                     VALUES("'.$data['Pregunta'].'",
                                             (SELECT idTipoP FROM TIPO_PREGUNTA WHERE TipoP="'.$data['TipoP'].'"),
                                             '.$data['idCuestionario'].')');
+        if($insertaP){                                    
        switch ($data['TipoP']) {
            case "MULTIPLE":
            $insertaRpre=$this->db->query('INSERT INTO RESPUESTA_PREE(RespuestaPree,idPregunta)
@@ -58,6 +59,7 @@ class CuestionariosM extends CI_Model{
                # code...
                break;
        }
+       }else echo ("error kk");
        
     }
 }

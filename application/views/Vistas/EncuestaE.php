@@ -42,6 +42,8 @@
             $P3= $Respuestas[2];
     ?>
     <?= form_hidden("idEst",$idEst);?>
+    <?= form_hidden("idCuest",$idCuest);?>
+   
     <?= form_hidden("NPregunta",$aumento);?>
 	<?php
     $resp1 = array(

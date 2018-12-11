@@ -69,9 +69,7 @@
     <?php $options = array(
         1         => 'Crear Encuesta',
         2         => 'Eliminar Encuesta',
-        
-        4           =>'Seleccionar Participantes',
-        );?>
+         );?>
 	<div class="form-group mx-3 my-3">
   	 <?= form_label('Tipo de Usuario:','Tipo','class="mx-3 d-sm-block text-white"') ?>
      <?= form_dropdown($Accion, $options,'','class="btn btn-primary dropdown-toggle"') ?>
@@ -82,14 +80,14 @@
 	<?= form_submit("","Ir",'class="btn btn-primary"')?>
 	
 	<?= form_close()?>
-	 <?= form_open('/AdminEstC/EstParticular')?>
+	 <?= form_open('/EparticularC/Part')?>
 	
 	<table class="table table-striped" > 
 
 		<thead >
 		<tr>
 			<th scope="col" style="width:10% ">Cuestionario</th>
-			<th scope="col" style="width:5% ">selec</th>
+			<th scope="col" style="width:5% ">selecionar Participantes</th>
             
 		</tr>
 	
@@ -131,6 +129,7 @@
 	</table>
 	<?= form_hidden("totalD",$i-1);?>
 	<?= form_submit("","VER",'class="btn btn-primary"');?>
+	<?= form_hidden("idEst",$idEst);?>
 	
 	<?= form_close();?>
 	<br><br>

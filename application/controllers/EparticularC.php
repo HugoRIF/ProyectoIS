@@ -48,10 +48,22 @@ class EparticularC extends CI_Controller {
                 break;
         }
 	}
+	function Part(){
+		$data = array(
+			'idEst' => $this->input->post('idEst'),
+			'idCuest' => $this->input->post('radio'),
+			
+		);
+		$this->load->view('Vistas/Encabezado');
+            $this->load->view('Vistas/SeleccionarP',$data);
+            
+			
+	}
 function SeleccionarU(){
 
 		$total=$this->input->post('totalD');
 		$idEst=$this->input->post('idEst');
+		$idCuest=$this->input->post('idCuest');
 		
 		$Usuarios_Seleccionar=array();
 		for ($i=1; $i <= $total ; $i++) { 
@@ -63,11 +75,11 @@ function SeleccionarU(){
 		}
 		$data = array(
 			'idEst' => $this->input->post('idEst'),
+			'idCuest' => $this->input->post('idCuest'),
 			'seleccionados' => $Usuarios_Seleccionar
         );
-		$this->ParticularM->SelecionarU($Usuarios_Seleccionar,$idEst);
-		echo '<script>alert("Los Usuarios han sido Selecionados");</script>';
-		
+		$this->ParticularM->SelecionarU($Usuarios_Seleccionar,$idEst,$idCuest);
+			
 		$this->load->view('Vistas/Encabezado');
 			$this->load->view('Vistas/SeleccionarPA',$data);
 
@@ -95,14 +107,17 @@ function AsigEncuestas(){
 	}
 	$data = array(
 		'idEst' => $this->input->post('idEst'),
-		'seleccionados' => $Usuarios_Seleccionar
+		'seleccionados' => $Usuarios_Seleccionar,
+		'id'=>$this->session->userdata('id'),
+		'idCuest' => $this->input->post('idCuest'),
+		
 	);
-	$this->ParticularM->AsignarE($Usuarios_Seleccionar,$idEst,$Encuestas_asigadas);
+	$this->ParticularM->AsignarE($Usuarios_Seleccionar,$idEst,$Encuestas_asigadas,$data['idCuest']);
 	echo '<script>alert("Los Usuarios han sido Selecionados");</script>';
 	
-	$this->load->view('Vistas/Encabezado');
-		$this->load->view('Vistas/SeleccionarPA',$data);
-
+	
+		$this->load->view('Vistas/Encabezado');
+	$this->load->view('Vistas/ingresoAE1',$data);
 }
 
 }

@@ -47,10 +47,10 @@
 	<tbody>
 
 	<?php
-	$participantes = $seleccionados;
+	$participantes = $this->ParticularM->MostrarP($seleccionados);
 	$i=0;
 	foreach ($participantes as $array){
-		
+		if($i!=0){
 			
 		?><tr>
 			<td style="text-align:center">
@@ -63,7 +63,8 @@
 			
 
 	<?php
-	
+		}
+		else{$i++;}
 			}
 			
 	 ?>
@@ -73,7 +74,9 @@
 	<?= form_hidden("totalD",$i-1);?>
 	<?= form_hidden("idEst",$idEst);?>
 	<?= form_hidden("idPart",$participantes);?>
-	
+
+	<?= form_hidden("idCuest",$idCuest);?>
+
 	<?= form_submit("","Asignar",'class="btn btn-success"');?>
 	<?= form_close();?>
 	<br><br>

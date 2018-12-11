@@ -33,16 +33,18 @@
             <p class="lead text-center mb-4 ">
             Encuestas Asignadas: <?= $EAsignadas?>
             <br>
-            Encuestas Faltantes: 0
-            </p>
+          
 
 </div>
 <center>	
+<?php 
+    $idCuest=$this->EncuestadorM->dame_idCuest($this->session->userdata('id'),$idEst);
+?>
 	<?= form_open('/EncuestadorC/Cuest','class="form-horizontal justify-content-center flex-column flex-md-row"') ?>
     
     <?= form_hidden("idEst",$idEst);?>
     <?= form_hidden("NPregunta",0);?>
-	
+	<?= form_hidden("idCuest",$idCuest);?>
 
 	<?= form_submit("","Nueva Encuesta",'class="btn btn-success"')?>
 	

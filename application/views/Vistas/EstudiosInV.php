@@ -83,9 +83,6 @@
 	<?= form_hidden("totalD",$i-1);?>
 	<?= form_submit("","VER",'class="btn btn-primary"');?>
 	
-	<?= form_close();?>
-	<br><br>
-	
 <?php
     $idEst = array(
         'name' =>'idEst',
