@@ -8,10 +8,16 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
+-- Schema ReproductorDB
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
 -- Schema ProyectoIs
 -- -----------------------------------------------------
-CREATE DATABASE IF NOT EXISTS `ProyectoIs` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `ProyectoIs` DEFAULT CHARACTER SET utf8 ;
+
 USE `ProyectoIs` ;
+
 -- -----------------------------------------------------
 -- Table `ProyectoIs`.`TIPO_USUARIO`
 -- -----------------------------------------------------
@@ -34,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `ProyectoIs`.`USUARIO` (
   `Correo` VARCHAR(45) NOT NULL,
   `Tipo` INT(11) NOT NULL,
   PRIMARY KEY (`idUsuario`),
-  INDEX `fk_USUARIO_TIPO_USUARIO_idx` (`Tipo` ASC) ,
+  INDEX `fk_USUARIO_TIPO_USUARIO_idx` (`Tipo` ASC) VISIBLE,
   CONSTRAINT `fk_USUARIO_TIPO_USUARIO`
     FOREIGN KEY (`Tipo`)
     REFERENCES `ProyectoIs`.`TIPO_USUARIO` (`idTipoU`)
@@ -54,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `ProyectoIs`.`ESTUDIO` (
   `DescripcionEs` VARCHAR(200) NOT NULL,
   `idAdminEstudio` INT(11) NOT NULL,
   PRIMARY KEY (`idEstudio`),
-  INDEX `fk_ESTUDIO_USUARIO1_idx` (`idAdminEstudio` ASC) ,
+  INDEX `fk_ESTUDIO_USUARIO1_idx` (`idAdminEstudio` ASC) VISIBLE,
   CONSTRAINT `fk_ESTUDIO_USUARIO1`
     FOREIGN KEY (`idAdminEstudio`)
     REFERENCES `ProyectoIs`.`USUARIO` (`idUsuario`)
@@ -73,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `ProyectoIs`.`CUESTIONARIO` (
   `Cuestionario` VARCHAR(200) NOT NULL,
   `idEstudio` INT(11) NOT NULL,
   PRIMARY KEY (`idCuestionario`),
-  INDEX `fk_CUESTIONARIO_ESTUDIO1_idx` (`idEstudio` ASC) ,
+  INDEX `fk_CUESTIONARIO_ESTUDIO1_idx` (`idEstudio` ASC) VISIBLE,
   CONSTRAINT `fk_CUESTIONARIO_ESTUDIO1`
     FOREIGN KEY (`idEstudio`)
     REFERENCES `ProyectoIs`.`ESTUDIO` (`idEstudio`)
@@ -88,44 +94,27 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ProyectoIs`.`ESTUDIOS_DE_ENCUESTADOR` (
   `idE_ENcuest` INT NOT NULL AUTO_INCREMENT,
-  `idEncuestador` INT(11) NOT NULL,
-  `idEstudio` INT(11) NOT NULL,
-  PRIMARY KEY (`idE_ENcuest`, `idEncuestador`, `idEstudio`),
-  INDEX `fk_USUARIO_has_ESTUDIO_ESTUDIO1_idx` (`idEstudio` ASC) ,
-  INDEX `fk_USUARIO_has_ESTUDIO_USUARIO1_idx` (`idEncuestador` ASC) ,
-  CONSTRAINT `fk_USUARIO_has_ESTUDIO_USUARIO1`
-    FOREIGN KEY (`idEncuestador`)
-    REFERENCES `ProyectoIs`.`USUARIO` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_USUARIO_has_ESTUDIO_ESTUDIO1`
-    FOREIGN KEY (`idEstudio`)
-    REFERENCES `ProyectoIs`.`ESTUDIO` (`idEstudio`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `ProyectoIs`.`CUESTIONARIO_CONTEST`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ProyectoIs`.`CUESTIONARIO_CONTEST` (
-  `idCuestionarioC` INT(11) NOT NULL,
-  `CuestionarioC` VARCHAR(200) NULL DEFAULT NULL,
+  `EAsignadas` INT NULL,
   `idCuestionario` INT(11) NOT NULL,
-  `idE_ENcuest` INT NOT NULL,
-  PRIMARY KEY (`idCuestionarioC`),
-  INDEX `fk_CUESTIONARIO_CONTEST_CUESTIONARIO1_idx` (`idCuestionario` ASC) ,
-  INDEX `fk_CUESTIONARIO_CONTEST_ESTUDIOS_DE_ENCUESTADOR1_idx` (`idE_ENcuest` ASC) ,
-  CONSTRAINT `fk_CUESTIONARIO_CONTEST_CUESTIONARIO1`
+  `idUsuario` INT(11) NOT NULL,
+  `idEstudio` INT(11) NOT NULL,
+  PRIMARY KEY (`idE_ENcuest`),
+  INDEX `fk_ESTUDIOS_DE_ENCUESTADOR_CUESTIONARIO1_idx` (`idCuestionario` ASC) VISIBLE,
+  INDEX `fk_ESTUDIOS_DE_ENCUESTADOR_USUARIO1_idx` (`idUsuario` ASC) VISIBLE,
+  INDEX `fk_ESTUDIOS_DE_ENCUESTADOR_ESTUDIO1_idx` (`idEstudio` ASC) VISIBLE,
+  CONSTRAINT `fk_ESTUDIOS_DE_ENCUESTADOR_CUESTIONARIO1`
     FOREIGN KEY (`idCuestionario`)
     REFERENCES `ProyectoIs`.`CUESTIONARIO` (`idCuestionario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CUESTIONARIO_CONTEST_ESTUDIOS_DE_ENCUESTADOR1`
-    FOREIGN KEY (`idE_ENcuest`)
-    REFERENCES `ProyectoIs`.`ESTUDIOS_DE_ENCUESTADOR` (`idE_ENcuest`)
+  CONSTRAINT `fk_ESTUDIOS_DE_ENCUESTADOR_USUARIO1`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `ProyectoIs`.`USUARIO` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ESTUDIOS_DE_ENCUESTADOR_ESTUDIO1`
+    FOREIGN KEY (`idEstudio`)
+    REFERENCES `ProyectoIs`.`ESTUDIO` (`idEstudio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -150,18 +139,18 @@ CREATE TABLE IF NOT EXISTS `ProyectoIs`.`PREGUNTA` (
   `idPregunta` INT(11) NOT NULL AUTO_INCREMENT,
   `Pregunta` VARCHAR(100) NOT NULL,
   `idTipoP` INT(11) NOT NULL,
-  `idEstudio` INT(11) NOT NULL,
+  `idCuestionario` INT(11) NOT NULL,
   PRIMARY KEY (`idPregunta`),
-  INDEX `fk_PREGUNTA_TIPO_PREGUNTA1_idx` (`idTipoP` ASC) ,
-  INDEX `fk_PREGUNTA_ESTUDIO1_idx` (`idEstudio` ASC) ,
-  CONSTRAINT `fk_PREGUNTA_ESTUDIO1`
-    FOREIGN KEY (`idEstudio`)
-    REFERENCES `ProyectoIs`.`ESTUDIO` (`idEstudio`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_PREGUNTA_TIPO_PREGUNTA1_idx` (`idTipoP` ASC) VISIBLE,
+  INDEX `fk_PREGUNTA_CUESTIONARIO1_idx` (`idCuestionario` ASC) VISIBLE,
   CONSTRAINT `fk_PREGUNTA_TIPO_PREGUNTA1`
     FOREIGN KEY (`idTipoP`)
     REFERENCES `ProyectoIs`.`TIPO_PREGUNTA` (`idTipoP`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PREGUNTA_CUESTIONARIO1`
+    FOREIGN KEY (`idCuestionario`)
+    REFERENCES `ProyectoIs`.`CUESTIONARIO` (`idCuestionario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -176,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `ProyectoIs`.`RESPUESTA_PREE` (
   `RespuestaPree` VARCHAR(100) NOT NULL,
   `idPregunta` INT(11) NOT NULL,
   PRIMARY KEY (`idRespuestaPre`),
-  INDEX `fk_RESPUESTA_PREE_PREGUNTA1_idx` (`idPregunta` ASC) ,
+  INDEX `fk_RESPUESTA_PREE_PREGUNTA1_idx` (`idPregunta` ASC) VISIBLE,
   CONSTRAINT `fk_RESPUESTA_PREE_PREGUNTA1`
     FOREIGN KEY (`idPregunta`)
     REFERENCES `ProyectoIs`.`PREGUNTA` (`idPregunta`)
@@ -193,15 +182,8 @@ CREATE TABLE IF NOT EXISTS `ProyectoIs`.`RESPUESTA_CAMPO` (
   `idRespuestaC` INT(11) NOT NULL AUTO_INCREMENT,
   `RespuestaC` VARCHAR(45) NOT NULL,
   `idRespuestaPre` INT(11) NOT NULL,
-  `idCuestionarioC` INT(11) NOT NULL,
   PRIMARY KEY (`idRespuestaC`),
-  INDEX `fk_RESPUESTA_CAMPO_RESPUESTA_PREE1_idx` (`idRespuestaPre` ASC) ,
-  INDEX `fk_RESPUESTA_CAMPO_CUESTIONARIO_CONTEST1_idx` (`idCuestionarioC` ASC) ,
-  CONSTRAINT `fk_RESPUESTA_CAMPO_CUESTIONARIO_CONTEST1`
-    FOREIGN KEY (`idCuestionarioC`)
-    REFERENCES `ProyectoIs`.`CUESTIONARIO_CONTEST` (`idCuestionarioC`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_RESPUESTA_CAMPO_RESPUESTA_PREE1_idx` (`idRespuestaPre` ASC) VISIBLE,
   CONSTRAINT `fk_RESPUESTA_CAMPO_RESPUESTA_PREE1`
     FOREIGN KEY (`idRespuestaPre`)
     REFERENCES `ProyectoIs`.`RESPUESTA_PREE` (`idRespuestaPre`)
@@ -211,6 +193,75 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
+-- -----------------------------------------------------
+-- Table `ProyectoIs`.`CUESTIONARIO_CONTEST`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProyectoIs`.`CUESTIONARIO_CONTEST` (
+  `idCuestionarioC` INT(11) NOT NULL,
+  `CuestionarioC` VARCHAR(200) NULL DEFAULT NULL,
+  `idCuestionario` INT(11) NOT NULL,
+  `idE_ENcuest` INT NOT NULL,
+  `RESPUESTA_CAMPO_idRespuestaC` INT(11) NOT NULL,
+  PRIMARY KEY (`idCuestionarioC`),
+  INDEX `fk_CUESTIONARIO_CONTEST_CUESTIONARIO1_idx` (`idCuestionario` ASC) VISIBLE,
+  INDEX `fk_CUESTIONARIO_CONTEST_ESTUDIOS_DE_ENCUESTADOR1_idx` (`idE_ENcuest` ASC) VISIBLE,
+  INDEX `fk_CUESTIONARIO_CONTEST_RESPUESTA_CAMPO1_idx` (`RESPUESTA_CAMPO_idRespuestaC` ASC) VISIBLE,
+  CONSTRAINT `fk_CUESTIONARIO_CONTEST_CUESTIONARIO1`
+    FOREIGN KEY (`idCuestionario`)
+    REFERENCES `ProyectoIs`.`CUESTIONARIO` (`idCuestionario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CUESTIONARIO_CONTEST_ESTUDIOS_DE_ENCUESTADOR1`
+    FOREIGN KEY (`idE_ENcuest`)
+    REFERENCES `ProyectoIs`.`ESTUDIOS_DE_ENCUESTADOR` (`idE_ENcuest`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CUESTIONARIO_CONTEST_RESPUESTA_CAMPO1`
+    FOREIGN KEY (`RESPUESTA_CAMPO_idRespuestaC`)
+    REFERENCES `ProyectoIs`.`RESPUESTA_CAMPO` (`idRespuestaC`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `ProyectoIs`.`TIPO_USUARIO`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ProyectoIs`;
+INSERT INTO `ProyectoIs`.`TIPO_USUARIO` (`idTipoU`, `TipoU`) VALUES (1, 'Administrador Sistema');
+INSERT INTO `ProyectoIs`.`TIPO_USUARIO` (`idTipoU`, `TipoU`) VALUES (2, 'Administrador Estudio');
+INSERT INTO `ProyectoIs`.`TIPO_USUARIO` (`idTipoU`, `TipoU`) VALUES (3, 'Encuestador');
+INSERT INTO `ProyectoIs`.`TIPO_USUARIO` (`idTipoU`, `TipoU`) VALUES (4, 'Analista');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ProyectoIs`.`USUARIO`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ProyectoIs`;
+INSERT INTO `ProyectoIs`.`USUARIO` (`idUsuario`, `NombreU`, `Contraseña`, `Correo`, `Tipo`) VALUES (1, 'Hugo', '123', 'correo', 1);
+INSERT INTO `ProyectoIs`.`USUARIO` (`idUsuario`, `NombreU`, `Contraseña`, `Correo`, `Tipo`) VALUES (2, 'Lalo', '123', 'correo', 2);
+INSERT INTO `ProyectoIs`.`USUARIO` (`idUsuario`, `NombreU`, `Contraseña`, `Correo`, `Tipo`) VALUES (3, 'Itzel', '123', 'correo', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ProyectoIs`.`TIPO_PREGUNTA`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ProyectoIs`;
+INSERT INTO `ProyectoIs`.`TIPO_PREGUNTA` (`idTipoP`, `TipoP`) VALUES (1, 'MULTIPLE');
+INSERT INTO `ProyectoIs`.`TIPO_PREGUNTA` (`idTipoP`, `TipoP`) VALUES (2, 'BINARIA');
+INSERT INTO `ProyectoIs`.`TIPO_PREGUNTA` (`idTipoP`, `TipoP`) VALUES (3, 'ABIERTA');
+
+COMMIT;
+
