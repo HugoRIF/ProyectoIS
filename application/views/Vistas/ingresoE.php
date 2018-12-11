@@ -7,7 +7,7 @@
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
-            <img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+            <img src="<?= base_url()?>img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
             Menu
         </div>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,9 +15,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
-                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/EncuestadorC/inicio">Inicio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EncuestadorC/index">Mis Estudios</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/EncuestadorC/Salir">Salir</a>
+                <a class="nav-item nav-link active" href="<?= base_url()?>index.php/EncuestadorC/inicio">Inicio</a>
+                <a class="nav-item nav-link" href="<?= base_url()?>index.php/EncuestadorC/index">Mis Estudios</a>
+                <a class="nav-item nav-link" href="<?= base_url()?>index.php/EncuestadorC/Salir">Salir</a>
                 
             </div>
             

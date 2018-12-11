@@ -7,7 +7,7 @@ class EncuestadorM extends CI_Model{
         $this->load->database();
     }
     function Mostrar_Est($idSesion){
-        $result=$this->db->query('SELECT e.NombreEs FROM ESTUDIO e, ESTUDIOS_DE_ENCUESTADOR ed WHERE ed.idEstudio = e.idEstudio AND ed.idEncuestador ='.$idSesion)->result();
+        $result=$this->db->query('SELECT e.NombreEs FROM ESTUDIO e, ESTUDIOS_DE_ENCUESTADOR ed WHERE ed.idEstudio = e.idEstudio AND ed.idUsuario ='.$idSesion)->result();
        #$tam=$result->count();
        $arrayNombreEst = array('');
        $i=0;
@@ -19,7 +19,7 @@ class EncuestadorM extends CI_Model{
        
    }
    function Mostrar_idEst($idSesion){
-    $result=$this->db->query('SELECT idEstudio FROM ESTUDIOS_DE_ENCUESTADOR WHERE idEncuestador ='.$idSesion)->result();
+    $result=$this->db->query('SELECT idEstudio FROM ESTUDIOS_DE_ENCUESTADOR WHERE idUsuario ='.$idSesion)->result();
    #$tam=$result->count();
    $arrayNombreEst = array('');
    $i=0;
@@ -49,12 +49,61 @@ function Mostrar_NombreEst($idestu){
 function Mostrar_EAsignadas($idSesion,$idEst){
     $result=$this->db->query('SELECT EAsignadas 
     FROM ESTUDIOS_DE_ENCUESTADOR 
-    WHERE idEncuestador ='.$idSesion.'
+    WHERE idUsuario ='.$idSesion.'
     AND idEstudio ='.$idEst)->result();
     $descrip = $result[0]->EAsignadas;
     return $descrip;
 }
-
+function Mostrar_Reactivo($idEst,$i){
+    $result=$this->db->query('SELECT Pregunta 
+                            FROM PREGUNTA 
+                            WHERE idCuestionario =(SELECT idCuestionario FROM CUESTIONARIO WHERE idEstudio='.$idEst.')')->result();
+   #$tam=$result->count();
+   $pregunta=$result[$i]->Pregunta;
+   return $pregunta ;
+   
+}
+function Mostrar_idReactivo($idEst,$i){
+    $result=$this->db->query('SELECT idPregunta 
+                            FROM PREGUNTA 
+                            WHERE idCuestionario =(SELECT idCuestionario FROM CUESTIONARIO WHERE idEstudio='.$idEst.')')->result();
+   #$tam=$result->count();
+   $pregunta=$result[$i]->idPregunta;
+   return $pregunta ;
+   
+}
+function Mostrar_Respuestas($idP){
+    $result=$this->db->query('SELECT RespuestaPree
+                            FROM RESPUESTA_PREE 
+                            WHERE idPregunta ='.$idP)->result();
+   #$tam=$result->count();
+   $Respuesta=explode("#",$result[0]->RespuestaPree);
+   return $Respuesta ;
+   
+}
+function dame_idCuest($idU,$idE){
+    $result=$this->db->query('SELECT idCuestionario
+                            FROM ESTUDIOS_DE_ENCUESTADOR 
+                            WHERE idEstudio ='.$idE.' AND idUsuario='.$idU)->result();
+   #$tam=$result->count();
+   $Respuesta=$result[0]->idCuestionario;
+   return $Respuesta ;
+   
+}
+function Mostrar_cantReactivo($idC){
+    $result=$this->db->query('SELECT count(*) as cant
+                            FROM PREGUNTA 
+                            WHERE idCuestionario ='.$idC)->result();
+   #$tam=$result->count();
+   $pregunta=$result[0]->cant;
+   return $pregunta ;
+   
+}
+function GuardaR_Respuestas($R,$P){
+    $result=$this->db->query('INSERT INTO RESPUESTA_CAMPO(RespuestaC, idRespuestaPre)
+                              VALUES("'.$R.'",(SELECT idRespuestaPre FROM RESPUESTA_PREE WHERE idPregunta='.$P.'))');
+   
+}
 }
 
 

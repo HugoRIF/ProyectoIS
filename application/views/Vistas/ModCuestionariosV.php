@@ -2,7 +2,7 @@
   </head>
   
 <section class="container-fluid slider d-flex justify-content-center align-items-center">
-      <h1 class="display-3 text-white">Administrador de Estudio</h1>
+      <h1 class="display-3 text-white">Modificar Encuestas</h1>
     </section>
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
@@ -26,67 +26,47 @@
         </div>
     </nav>
 <!-- Fin menu de navegacion -->
+
 <body>
-     </div>
-	 <div class="container-fluid ">
-        <section class="container py-3 mt-3 mb-3">
-            <h3 class="text-uppercase text-center mb-4 ">Mis Estudios</h3>
-            
-	 <?= form_open('/AdminEstC/EstParticular')?>
-	
-	<table class="table table-striped" > 
+<center>
+<h1>Modificar Cuestionario</h1>
 
-		<thead >
-		<tr>
-			<th scope="col" style="width:5%">id</th>
-			<th scope="col" style="width:20% ">Estudio</th>
-			<th scope="col" style="width:5% ">Accion</th>
-		</tr>
+<div class="form">
 	
-		</thead>
-	<tbody>
+<?=form_open("/ModCuestionariosC/recibirdatos", 'class="form-group"') ?>
+<?php
+    $idCuestionario = array(
+        'name' =>'idCuestionario',
+        'placeholder' =>'idCuestionario'
+    );
+    $numCuestionario = array(
+            'name' => 'numCuestionario',
+            'placeholder' => 'Numero de Cuestionario'
+    );
+    $idEst = array(
+        'name' =>'idEst',
+        'placeholder' =>'Id del estudio al que pertenece el Cuestionario'
+    );
+    
+?>
+<?= form_label('id del Cuestionario: ','idCuestionario','class="col-sm-2 col-form-label"')?>
+<?= form_input($idCuestionario) ?>
+<br><br><br>
+<?= form_label('numero de cuestionario: ','numCuestionario','class="col-sm-2 col-form-label"')?>
+<?= form_input($numCuestionario) ?>
+<br><br><br>
+<?= form_label('Id del estudio al que pertenece el Cuestionario: ','idEst','class="col-sm-2 col-form-label"')?>
+<br>
+<?= form_textarea($idEst) ?>
+<br><br><br>
+<?= form_submit('','Modificar datos del cuestionario','class="btn btn-success"') ?>
 
-	<?php
-	$idEstudio=$this->AdminEstM->Mostrar_idEst($this->session->userdata('id'));
-	
-	$Estudio=$this->AdminEstM->Mostrar_Est($this->session->userdata('id'));
-	
-	$i=0;
-	foreach ($Estudio as $array){
-		$data = array(
-			'name'          => 'radio',
-			'id'            => 'radio'.$i,
-			'value'         => $idEstudio[$i],
-			'checked'       => True,
-			'style'         => 'margin:10px'
-	);
-		if($i!=0){ 
-			
-		?><tr>
-			<td style="text-align:center">
-			<?= $idEstudio[$i];?></td>
-			<td style="text-align:center">
-			<?= $Estudio[$i];?></td>
-			<td style="text-align:center">
-			<?= form_radio($data);$i++;?></td>
-				
-		</tr>
-			
+<a class="btn btn-success"
+href="http://localhost/ProyectoIng/index.php/MisCuestionariosC"
+role="button">Ver Cuestionarios en este estudio</a>
+<?php form_close() ?>
 
-	<?php
-		}else $i++;
-			}
-			
-	 ?>
-	</tbody>
-	</table>
-	<?= form_hidden("totalD",$i-1);?>
-	<?= form_submit("","VER",'class="btn btn-primary"');?>
-	
-	<?= form_close();?>
-	<br><br>
-	
-		
-
+</center><br>
+</div>
 </body>
 </html>

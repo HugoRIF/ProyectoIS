@@ -9,7 +9,7 @@
 <!-- Inicio Menu Navegacion -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
-            <img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+            <img src="<?= base_url()?>img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
             Menu
         </div>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,10 +17,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
-                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/RUNC/inicio">Inicio</a>
-                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/RUNC/index">Registrar Usuario</a>
-                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/EUC/index">Eliminar Usuario</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/LoginC/index">Salir</a>
+                <a class="nav-item nav-link " href="<?= base_url()?>index.php/RUNC/inicio">Inicio</a>
+                <a class="nav-item nav-link active" href="<?= base_url()?>index.php/RUNC/index">Registrar Usuario</a>
+                <a class="nav-item nav-link " href="<?= base_url()?>index.php/EUC/index">Eliminar Usuario</a>
+                <a class="nav-item nav-link" href="<?= base_url()?>index.php/LoginC/index">Salir</a>
                 
             </div>
             
@@ -34,7 +34,7 @@
 	<center>	
 	<?= form_open('/RUNC/RegistrarU','class="form-horizontal justify-content-center flex-column flex-md-row"') ?>
 	
-	<?
+	<?php
 		$nombre = array(
 			'name' => 'nombre',
 			'placeholder' => 'Escribe el nombre'
@@ -79,7 +79,7 @@
 	
 	<?= form_close()?>
 	<br>	
-	<a class="btn btn-danger" href="http://192.168.64.2/ProyectoIS/index.php/RUNC/inicio" role="button">Cancelar</a>
+	<a class="btn btn-danger" href="<?= base_url()?>index.php/RUNC/inicio" role="button">Cancelar</a>
 	</center>
 	
 	</div>

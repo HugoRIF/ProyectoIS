@@ -1,4 +1,4 @@
-<title>Registrar U</title>
+<title>Registrar c</title>
   </head>
   
 
@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="navbar-brand" href="">
             
-			<img src="http://192.168.64.2/ProyectoIS/img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
+			<img src="<?= base_url()?>img/menu.png" width="30" height="30" class="d-inline-block align-top" alt="Logo Bootstrap">
             Menu
         </div>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,10 +17,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="navbar-nav mr-auto ml-auto text-left">
-                <a class="nav-item nav-link active" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Inicio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Alta Estudio</a>
-                <a class="nav-item nav-link " href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/index">Eliminar Estudio</a>
-                <a class="nav-item nav-link" href="http://192.168.64.2/ProyectoIS/index.php/AdminEstC/Salir">Salir</a>
+                <a class="nav-item nav-link active" href="<?= base_url()?>index.php/AdminEstC/index">Inicio</a>
+                <a class="nav-item nav-link" href="<?= base_url()?>index.php/AdminEstC/index">Alta Estudio</a>
+                <a class="nav-item nav-link " href="<?= base_url()?>index.php/AdminEstC/index">Eliminar Estudio</a>
+                <a class="nav-item nav-link" href="<?= base_url()?>index.php/AdminEstC/Salir">Salir</a>
                 
             </div>
             
@@ -29,34 +29,31 @@
 <!-- Fin menu de navegacion -->
 
 <body>
+<center>
 <div class="form">
-	
-<?=form_open("/CuestionariosC/recibirdatos", 'class="form-group"') ?>
+	<h1>Cuestionario para el estudio <?= $idEst?></h1>
+<?=form_open("/CuestionarioC/recibirdatos", 'class="form-group"') ?>
 <?php
-    $numCuestionario = array(
-            'name' => 'numCuestionario',
-            'placeholder' => 'Numero de Cuestionario'
-    );
-    $idEst = array(
-        'name' =>'idEst',
-        'placeholder' =>'Id del estudio al que pertenece el Cuestionario'
+    $nomCuestionario = array(
+            'name' => 'nomCuestionario',
+            'placeholder' => 'Nobre de Cuestionario'
     );
     
 ?>
 <?= form_hidden('idEst',$idEst) ?>
-<?= form_label('Nombre del Cuestionario','idEst','class="col-sm-2 col-form-label"')?>
+<?= form_label('Nombre del Cuestionario','','class="col-sm-4 col-form-label"')?>
 <br>
-<?= form_textarea($idEst) ?>
+<?= form_input($nomCuestionario) ?>
 <br><br><br>
 <center>
 <?= form_submit('','Dar de alta cuestionario','class="btn btn-success"') ?>
-
-<a class="btn btn-success"
-href="http://localhost/ProyectoIng/index.php/EstudiosC"
-role="button">Ver Cuestionarios en este estudio</a>
-</center>
 <?php form_close() ?>
 
+                            
+ </div>
+</center>
+
+</center>
 </div>
 </body>
 </html>
